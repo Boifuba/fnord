@@ -1,0 +1,187 @@
+{
+  "name": "Critical Magic",
+  "img": "systems/gurps/icons/single-die.webp",
+  "description": "",
+  "results": [
+    {
+      "_id": "kq54mtruG4VVrxxs",
+      "flags": {},
+      "type": 0,
+      "text": "Spell fails entirely. Caster takes 1d of injury.",
+      "img": "modules/gurps-instant-defaults/img/icons/magicCritical.png",
+      "weight": 1,
+      "range": [1, 3],
+      "drawn": false,
+      "documentCollection": "",
+      "documentId": null
+    },
+    {
+      "_id": "LNtvNpq2ijmiCamA",
+      "flags": {},
+      "type": 0,
+      "text": "Spell is cast on caster (if harmful) or on a random nearby foe (if beneficial).",
+      "img": "modules/gurps-instant-defaults/img/icons/magicCritical.png",
+      "weight": 1,
+      "range": [4, 4],
+      "drawn": false,
+      "documentCollection": "",
+      "documentId": null
+    },
+    {
+      "_id": "Ot67wqCjI3oIHXl4",
+      "flags": {},
+      "type": 0,
+      "text": "Spell is cast on one of the caster’s companions (if harmful) or on a random nearby foe (if beneficial).",
+      "img": "systems/gurps/icons/single-die.png",
+      "weight": 1,
+      "range": [5, 6],
+      "drawn": false,
+      "documentCollection": "",
+      "documentId": null
+    },
+    {
+      "_id": "D4370OiOhUFa6LI1",
+      "flags": {},
+      "type": 0,
+      "text": "Spell affects someone or something other than its intended target – friend, foe, or random object. Roll randomly or make an interesting choice.",
+      "img": "systems/gurps/icons/single-die.png",
+      "weight": 1,
+      "range": [7, 7],
+      "drawn": false,
+      "documentCollection": "",
+      "documentId": null
+    },
+    {
+      "_id": "RG1RqakWvqljj2aU",
+      "flags": {},
+      "type": 0,
+      "text": "Spell fails entirely. Caster takes 1 point of injury",
+      "img": "systems/gurps/icons/single-die.png",
+      "weight": 1,
+      "range": [8, 8],
+      "drawn": false,
+      "documentCollection": "",
+      "documentId": null
+    },
+    {
+      "_id": "NjHlUHfYmtrNhq5K",
+      "flags": {},
+      "type": 0,
+      "text": "Spell fails entirely. Caster is stunned (IQ roll to recover).",
+      "img": "systems/gurps/icons/single-die.png",
+      "weight": 1,
+      "range": [9, 9],
+      "drawn": false,
+      "documentCollection": "",
+      "documentId": null
+    },
+    {
+      "_id": "a4tdM1PGRgck1kOy",
+      "flags": {},
+      "type": 0,
+      "text": "Spell produces nothing but a loud noise, bright flash of light, awful odor, etc.",
+      "img": "systems/gurps/icons/single-die.png",
+      "weight": 1,
+      "range": [10, 11],
+      "drawn": false,
+      "documentCollection": "",
+      "documentId": null
+    },
+    {
+      "_id": "XSWTbN35uKx0DTlk",
+      "flags": {},
+      "type": 0,
+      "text": "Spell produces a weak and useless shadow of the intended effect.",
+      "img": "systems/gurps/icons/single-die.png",
+      "weight": 1,
+      "range": [12, 12],
+      "drawn": false,
+      "documentCollection": "",
+      "documentId": null
+    },
+    {
+      "_id": "GlakndcATHrxeJw5",
+      "flags": {},
+      "type": 0,
+      "text": "Spell is cast on caster (if harmful) or on a random nearby foe (if beneficial).",
+      "img": "systems/gurps/icons/single-die.png",
+      "weight": 1,
+      "range": [13, 13],
+      "drawn": false,
+      "documentCollection": "",
+      "documentId": null
+    },
+    {
+      "_id": "cNZvincpxT0Y0q2j",
+      "flags": {},
+      "type": 0,
+      "text": "Spell produces the reverse of the intended effect.",
+      "img": "systems/gurps/icons/single-die.png",
+      "weight": 1,
+      "range": [14, 14],
+      "drawn": false,
+      "documentCollection": "",
+      "documentId": null
+    },
+    {
+      "_id": "29mKXq36G6a9ZC9x",
+      "flags": {},
+      "type": 0,
+      "text": "Spell has the reverse of the intended effect, on the wrong target. Roll randomly.",
+      "img": "systems/gurps/icons/single-die.png",
+      "weight": 1,
+      "range": [15, 16],
+      "drawn": false,
+      "documentCollection": "",
+      "documentId": null
+    },
+    {
+      "_id": "9aYL6HHLrsgife1q",
+      "flags": {},
+      "type": 0,
+      "text": "Spell fails entirely. Caster temporarily forgets the spell. Make an IQ roll after a week, and again each following week, until he remembers.",
+      "img": "systems/gurps/icons/single-die.png",
+      "weight": 1,
+      "range": [17, 17],
+      "drawn": false,
+      "documentCollection": "",
+      "documentId": null
+    },
+    {
+      "_id": "15qZgs8mh0LeotHO",
+      "flags": {},
+      "type": 0,
+      "text": "Spell fails entirely. A demon or other malign entity appropriate to the setting appears and attacks the caster. (The GM may waive this result if, in his opinion, caster and spell were both lily-white, pure good in intent.)",
+      "img": "systems/gurps/icons/single-die.png",
+      "weight": 1,
+      "range": [18, 18],
+      "drawn": false,
+      "documentCollection": "",
+      "documentId": null
+    }
+  ],
+  "formula": "1d18",
+  "replacement": true,
+  "displayRoll": false,
+  "folder": null,
+  "flags": {
+    "core": {},
+    "cf": {
+      "id": "temp_8v3xccu1ira"
+    },
+    "exportSource": {
+      "world": "shadowpunk",
+      "system": "gurps",
+      "coreVersion": "11.308",
+      "systemVersion": "0.16.5"
+    }
+  },
+  "_stats": {
+    "systemId": "gurps",
+    "systemVersion": "0.16.5",
+    "coreVersion": "11.308",
+    "createdTime": 1694588878407,
+    "modifiedTime": 1694588878444,
+    "lastModifiedBy": "eGH4uMe1R1v62Iz2"
+  }
+}

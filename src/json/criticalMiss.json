@@ -1,0 +1,164 @@
+{
+  "name": "Critical Miss",
+  "img": "systems/gurps/icons/single-die.webp",
+  "description": "",
+  "results": [
+    {
+      "_id": "rH26cxM6qEPPK2sl",
+      "flags": {},
+      "type": 0,
+      "text": "<b> </b> <br />Your weapon breaks. If it is <i>Fine, Very Fine, magical,</i> a <i>firearm</i>, or a <i>solid crushing weapon</i>, roll again. <br />If you roll this result a second time, the weapon breaks; if not, you drop it instead.",
+      "img": "worlds/viking/adventures/Adventure_1620643926068/table/table/Fa0Xywc4KJ1hc01l/d20-black.svg",
+      "weight": 1,
+      "range": [3, 4],
+      "drawn": false,
+      "documentId": null
+    },
+    {
+      "_id": "72jcnviv6FR4BcUv",
+      "flags": {},
+      "type": 0,
+      "text": "<b> </b> <br />You hit yourself in the <b>Arm</b> or <b>Leg</b>. If this is an <i>impaling</i>, <i>piercing</i>, or <i>ranged</i> attack, roll again. <br />If you roll this result a second time, you hit yourself; if not, use the second result.",
+      "img": "worlds/viking/adventures/Adventure_1620643926068/table/table/Fa0Xywc4KJ1hc01l/d20-black.svg",
+      "weight": 1,
+      "range": [5, 5],
+      "drawn": false,
+      "documentId": null
+    },
+    {
+      "_id": "T1zCZHE5RXJeFTKo",
+      "flags": {},
+      "type": 0,
+      "text": "<b> </b> <br />You hit yourself in the <b>Arm</b> or <b>Leg</b> for half damage. If this is an <i>impaling</i>, <i>piercing</i>, or <i>ranged</i> attack, roll again. <br />If you roll this result a second time, you hit yourself; if not, use the second result.",
+      "img": "worlds/viking/adventures/Adventure_1620643926068/table/table/Fa0Xywc4KJ1hc01l/d20-black.svg",
+      "weight": 1,
+      "range": [6, 6],
+      "drawn": false,
+      "documentId": null
+    },
+    {
+      "_id": "dZTOL34KHXqyxxNr",
+      "flags": {},
+      "type": 0,
+      "text": "<b> </b> <br />You lose your balance and can do <i>nothing else</i> until your next turn (not even free actions). All <i>Active Defenses</i> are at <b>-2</b> until then.",
+      "img": "worlds/viking/adventures/Adventure_1620643926068/table/table/Fa0Xywc4KJ1hc01l/d20-black.svg",
+      "weight": 1,
+      "range": [7, 7],
+      "drawn": false,
+      "documentId": null
+    },
+    {
+      "_id": "7mcuX7Fa0BP3Jhiz",
+      "flags": {},
+      "type": 0,
+      "text": "<b> </b> <br />The weapon unreadies; you must take a <b>Ready</b> maneuver before you can use it again.",
+      "img": "worlds/viking/adventures/Adventure_1620643926068/table/table/Fa0Xywc4KJ1hc01l/d20-black.svg",
+      "weight": 1,
+      "range": [8, 8],
+      "drawn": false,
+      "documentId": null
+    },
+    {
+      "_id": "rUQ0TYfuSGDIXJBX",
+      "flags": {},
+      "type": 0,
+      "text": "<b> </b> <br />You drop your weapon. A cheap weapon breaks (p. 485).",
+      "img": "worlds/viking/adventures/Adventure_1620643926068/table/table/Fa0Xywc4KJ1hc01l/d20-black.svg",
+      "weight": 1,
+      "range": [9, 11],
+      "drawn": false,
+      "documentId": null
+    },
+    {
+      "_id": "7tsE7iJZ2D8tymON",
+      "flags": {},
+      "type": 0,
+      "text": "<b> </b> <br />The weapon unreadies; you must take a <b>Ready</b> maneuver before you can use it again.",
+      "img": "worlds/viking/adventures/Adventure_1620643926068/table/table/Fa0Xywc4KJ1hc01l/d20-black.svg",
+      "weight": 1,
+      "range": [12, 12],
+      "drawn": false,
+      "documentId": null
+    },
+    {
+      "_id": "NruERhfvT856BMbf",
+      "flags": {},
+      "type": 0,
+      "text": "<b> </b> <br />You lose your balance and can do <i>nothing else</i> until your next turn (not even free actions). All <i>Active Defenses</i> are at <b>-2</b> until then.",
+      "img": "worlds/viking/adventures/Adventure_1620643926068/table/table/Fa0Xywc4KJ1hc01l/d20-black.svg",
+      "weight": 1,
+      "range": [13, 13],
+      "drawn": false,
+      "documentId": null
+    },
+    {
+      "_id": "294CAptjk2YhNAmK",
+      "flags": {},
+      "type": 0,
+      "text": "<b> </b> <br /> <b>* Swinging Melee Attack</b> <br />Your weapon flies [[1d6]] yards from you (50% chance forward or backward). Anyone in the weapon's landing hex must roll vs. DX to avoid taking half damage from the weapon. <br /><br /><b>* All Other Cases</b> <br />You drop the weapon. A cheap weapon breaks (p. 485).",
+      "img": "worlds/viking/adventures/Adventure_1620643926068/table/table/Fa0Xywc4KJ1hc01l/d20-black.svg",
+      "weight": 1,
+      "range": [14, 14],
+      "drawn": false,
+      "documentId": null
+    },
+    {
+      "_id": "SYkj6AEwik33IqOk",
+      "flags": {},
+      "type": 0,
+      "text": "<b> </b> <br /> You pull a muscle, temporarily \"crippling\" your weapon arm for 30 minutes. You don't have to drop the weapon, but cannot use it to attack or defend.",
+      "img": "worlds/viking/adventures/Adventure_1620643926068/table/table/Fa0Xywc4KJ1hc01l/d20-black.svg",
+      "weight": 1,
+      "range": [15, 15],
+      "drawn": false,
+      "documentId": null
+    },
+    {
+      "_id": "sDUh5gs0MZxS2b6F",
+      "flags": {},
+      "type": 0,
+      "text": "<b> </b> <br /> <b>* Melee Attack</b> <br />You fall down. While <b>Prone</b>, you are at <b>-3</b> to all defenses, <b>-4</b> to all melee attacks, and can only move <b>1</b> hex per turn. It takes two turns to go from Prone, to Kneeling, to Standing. <br /><br /><b>* Ranged Attack</b> <br />You lose your balance and can do <i>nothing else</i> until your next turn (not even free actions). All <i>Active Defenses</i> are at <b>-2</b> until then.",
+      "img": "worlds/viking/adventures/Adventure_1620643926068/table/table/Fa0Xywc4KJ1hc01l/d20-black.svg",
+      "weight": 1,
+      "range": [16, 16],
+      "drawn": false,
+      "documentId": null
+    },
+    {
+      "_id": "B0fK7Jq3MXjjgFPJ",
+      "flags": {},
+      "type": 0,
+      "text": "<b> </b> <br />Your weapon breaks. If it is <i>Fine, Very Fine, magical,</i> a <i>firearm</i>, or a <i>solid crushing weapon</i>, roll again. <br />If you roll this result a second time, the weapon breaks; if not, you drop it instead.",
+      "img": "worlds/viking/adventures/Adventure_1620643926068/table/table/Fa0Xywc4KJ1hc01l/d20-black.svg",
+      "weight": 1,
+      "range": [17, 18],
+      "drawn": false,
+      "documentId": null
+    }
+  ],
+  "formula": "3d6",
+  "replacement": true,
+  "displayRoll": true,
+  "folder": null,
+  "flags": {
+    "exportSource": {
+      "world": "shadowpunk",
+      "system": "gurps",
+      "coreVersion": "11.308",
+      "systemVersion": "0.16.5"
+    },
+    "importid": "D4MmsMLskwUYS4AI",
+    "core": {},
+    "cf": {
+      "id": "temp_8v3xccu1ira"
+    }
+  },
+  "_stats": {
+    "systemId": "gurps",
+    "systemVersion": "0.16.5",
+    "coreVersion": "11.308",
+    "createdTime": 1694588629543,
+    "modifiedTime": 1694588629585,
+    "lastModifiedBy": "eGH4uMe1R1v62Iz2"
+  }
+}

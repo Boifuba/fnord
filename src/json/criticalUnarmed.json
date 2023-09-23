@@ -1,0 +1,186 @@
+{
+  "name": "Critical Unarmed Miss",
+  "img": "systems/gurps/icons/single-die.webp",
+  "description": "<i>Fighters that cannot fall down:</i> Treat any \"fall down\" result as [[1d3]] points of general injury.<br /><br />\n<i>Flyers and swimmers:</i> Treat any \"fall down\" result as being forced into an awkward position with the same effective results (<b>-4</b> to attack, <b>-3</b> to defend).",
+  "results": [
+    {
+      "_id": "t9xfkF5B8d0rztax",
+      "flags": {},
+      "type": 0,
+      "text": "<b>  </b> <br />You knock yourself unconscious! Roll vs. <b>HT</b> every 30 minutes to awaken.",
+      "img": "worlds/viking/adventures/Adventure_1620643926068/table/table/Fa0Xywc4KJ1hc01l/d20-black.svg",
+      "weight": 1,
+      "range": [3, 3],
+      "drawn": false,
+      "documentId": null
+    },
+    {
+      "_id": "UgrWJ1oxEKlwaapg",
+      "flags": {},
+      "type": 0,
+      "text": "<b>  </b> <br />If attacking or parrying with a limb, take <b>1 HP</b> of injury and the limb is temporarily \"crippled\" -- you cannot use it for 30 minutes.<br /><br />Otherwise, pull a muscle and suffer <i>Moderate Pain</i> (p. 428): <b>-2</b> to all DX, IQ, skill, and self-control rolls for the next <b>20 - HT</b> minutes (minimum of 1).",
+      "img": "worlds/viking/adventures/Adventure_1620643926068/table/table/Fa0Xywc4KJ1hc01l/d20-black.svg",
+      "weight": 1,
+      "range": [4, 4],
+      "drawn": false,
+      "documentId": null
+    },
+    {
+      "_id": "9GdPUIHfOyezTrGU",
+      "flags": {},
+      "type": 0,
+      "text": "<b>  </b> <br />You hit a solid object and take <i>crushing</i> damage equal to your <b>THR</b> to the body part you used (DR protects nomrally). <br /><br /><b><i>Exception:</i></b> If attacking a target with a ready <i>impaling</i> weapon, you fall on their weapon. Take the weapon's damage, but based on <i>your</i> ST.",
+      "img": "worlds/viking/adventures/Adventure_1620643926068/table/table/Fa0Xywc4KJ1hc01l/d20-black.svg",
+      "weight": 1,
+      "range": [5, 5],
+      "drawn": false,
+      "documentId": null
+    },
+    {
+      "_id": "5Mwlals6Egdf5jzx",
+      "flags": {},
+      "type": 0,
+      "text": "<b>  </b> <br />You hit a solid object and take <i>crushing</i> damage equal to <b>half</b> your <b>THR</b> to the body part you used (DR protects nomrally). <br /><br /><b><i>Exception:</i></b> If attacking a target with a ready <i>impaling</i> weapon, you fall on their weapon. Take <b>half</b> the weapon's damage, but based on <i>your</i> ST.<br /><br />If attacking with natural weapons such as claws or teeth, they break: <b>-1</b> to their damage until healed.",
+      "img": "worlds/viking/adventures/Adventure_1620643926068/table/table/Fa0Xywc4KJ1hc01l/d20-black.svg",
+      "weight": 1,
+      "range": [6, 6],
+      "drawn": false,
+      "documentId": null
+    },
+    {
+      "_id": "R5O4EheHIfMpKnv1",
+      "flags": {},
+      "type": 0,
+      "text": "<b>  </b> <br /><b>* Attacking</b><br />You stumble and advance 1 hex past your target, facing away: they are now behind you!<br /><br /><b>* Parrying</b><br />You fall down. While <b>Prone</b>, you are at <b>-3</b> to all defenses, <b>-4</b> to all melee attacks, and can only move <b>1</b> hex per turn. It takes two turns to go from Prone, to Kneeling, to Standing.",
+      "img": "worlds/viking/adventures/Adventure_1620643926068/table/table/Fa0Xywc4KJ1hc01l/d20-black.svg",
+      "weight": 1,
+      "range": [7, 7],
+      "drawn": false,
+      "documentId": null
+    },
+    {
+      "_id": "uIQmeIsglXeuvHcy",
+      "flags": {},
+      "type": 0,
+      "text": "<b>  </b> <br /> You fall down. While <b>Prone</b>, you are at <b>-3</b> to all defenses, <b>-4</b> to all melee attacks, and can only move <b>1</b> hex per turn. It takes two turns to go from Prone, to Kneeling, to Standing.",
+      "img": "worlds/viking/adventures/Adventure_1620643926068/table/table/Fa0Xywc4KJ1hc01l/d20-black.svg",
+      "weight": 1,
+      "range": [8, 8],
+      "drawn": false,
+      "documentId": null
+    },
+    {
+      "_id": "4x0dQBZdqTkikH3c",
+      "flags": {},
+      "type": 0,
+      "text": "<b>  </b> <br />You lose your balance and can do <i>nothing else</i> until your next turn (not even free actions). All <i>Active Defenses</i> are at <b>-2</b> until then.",
+      "img": "worlds/viking/adventures/Adventure_1620643926068/table/table/Fa0Xywc4KJ1hc01l/d20-black.svg",
+      "weight": 1,
+      "range": [9, 11],
+      "drawn": false,
+      "documentId": null
+    },
+    {
+      "_id": "k3O1KfmFKnxutAdp",
+      "flags": {},
+      "type": 0,
+      "text": "<b>  </b> <br />You trip. Make a DX roll to avoid falling down (at <b>-4</b> if kicking, or at twice the usual DX penalty for any technique that requires a DX roll to avoid mishap even on normal failure).",
+      "img": "worlds/viking/adventures/Adventure_1620643926068/table/table/Fa0Xywc4KJ1hc01l/d20-black.svg",
+      "weight": 1,
+      "range": [12, 12],
+      "drawn": false,
+      "documentId": null
+    },
+    {
+      "_id": "n8a5ah8PoUH1KXum",
+      "flags": {},
+      "type": 0,
+      "text": "<b>  </b> <br />You drop your guard. All your <i>active defenses</i> are at <b>-2</b> for the next turn, and any Evaluate bonus or Feint penalty against you until your next turn counts double. This <i>is</i> obvious to others.",
+      "img": "worlds/viking/adventures/Adventure_1620643926068/table/table/Fa0Xywc4KJ1hc01l/d20-black.svg",
+      "weight": 1,
+      "range": [13, 13],
+      "drawn": false,
+      "documentId": null
+    },
+    {
+      "_id": "sXKfuyjT6W8zQFdj",
+      "flags": {},
+      "type": 0,
+      "text": "<b>  </b> <br /><b>* Attacking</b><br />You stumble and advance 1 hex past your target, facing away: they are now behind you!<br /><br /><b>* Parrying</b><br />You fall down. While <b>Prone</b>, you are at <b>-3</b> to all defenses, <b>-4</b> to all melee attacks, and can only move <b>1</b> hex per turn. It takes two turns to go from Prone, to Kneeling, to Standing.",
+      "img": "worlds/viking/adventures/Adventure_1620643926068/table/table/Fa0Xywc4KJ1hc01l/d20-black.svg",
+      "weight": 1,
+      "range": [14, 14],
+      "drawn": false,
+      "documentId": null
+    },
+    {
+      "_id": "0E6ppKsmSIIJ2MBx",
+      "flags": {},
+      "type": 0,
+      "text": "<b>  </b> <br />You tear a muscle. Take [[1d3]] points of injury to the limb you used (to one limb, if you used two), or to your <b>Neck</b> if biting, butting, etc.<br /><br /> You are off-balance and at <b>-1</b> to all attacks and defenses for the next turn. You are at <b>-3</b> to any action involving that limb (or to any action, if you injure your <b>Neck</b>) until this damage heals. Reduce this penalty to <b>-1</b> if you have <i>High Pain Threshold</i>.",
+      "img": "worlds/viking/adventures/Adventure_1620643926068/table/table/Fa0Xywc4KJ1hc01l/d20-black.svg",
+      "weight": 1,
+      "range": [15, 15],
+      "drawn": false,
+      "documentId": null
+    },
+    {
+      "_id": "4J1HOSAGSbJrnOgA",
+      "flags": {},
+      "type": 0,
+      "text": "<b>  </b> <br />You hit a solid object and take <i>crushing</i> damage equal to your <b>THR</b> to the body part you used (DR protects nomrally). <br /><br /><b><i>Exception:</i></b> If attacking a target with a ready <i>impaling</i> weapon, you fall on their weapon. Take the weapon's damage, but based on <i>your</i> ST.",
+      "img": "worlds/viking/adventures/Adventure_1620643926068/table/table/Fa0Xywc4KJ1hc01l/d20-black.svg",
+      "weight": 1,
+      "range": [16, 16],
+      "drawn": false,
+      "documentId": null
+    },
+    {
+      "_id": "aL8z7hHQ7AdKv9uq",
+      "flags": {},
+      "type": 0,
+      "text": "<b>  </b> <br />If attacking or parrying with a limb, take <b>1 HP</b> of injury and the limb is temporarily \"crippled\" -- you cannot use it for 30 minutes.<br /><br />Otherwise, pull a muscle and suffer <i>Moderate Pain</i> (p. 428): <b>-2</b> to all DX, IQ, skill, and self-control rolls for the next <b>20 - HT</b> minutes (minimum of 1).",
+      "img": "worlds/viking/adventures/Adventure_1620643926068/table/table/Fa0Xywc4KJ1hc01l/d20-black.svg",
+      "weight": 1,
+      "range": [17, 17],
+      "drawn": false,
+      "documentId": null
+    },
+    {
+      "_id": "Zrw6zbnUzWC3qS4w",
+      "flags": {},
+      "type": 0,
+      "text": "<b>  </b> <br />You knock yourself unconscious! Roll vs. <b>HT</b> every 30 minutes to awaken.",
+      "img": "worlds/viking/adventures/Adventure_1620643926068/table/table/Fa0Xywc4KJ1hc01l/d20-black.svg",
+      "weight": 1,
+      "range": [18, 18],
+      "drawn": false,
+      "documentId": null
+    }
+  ],
+  "formula": "3d6",
+  "replacement": true,
+  "displayRoll": true,
+  "folder": "lDqIXqWFrDOVkmaG",
+  "flags": {
+    "exportSource": {
+      "world": "shadowpunk",
+      "system": "gurps",
+      "coreVersion": "11.308",
+      "systemVersion": "0.16.5"
+    },
+    "importid": "SLM1qedQn2SMa4td",
+    "core": {},
+    "cf": {
+      "id": "temp_8v3xccu1ira"
+    }
+  },
+  "_stats": {
+    "systemId": "gurps",
+    "systemVersion": "0.16.5",
+    "coreVersion": "11.308",
+    "createdTime": 1694599805039,
+    "modifiedTime": 1694599805598,
+    "lastModifiedBy": "eGH4uMe1R1v62Iz2"
+  }
+}

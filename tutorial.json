@@ -1,0 +1,18 @@
+{
+    "content": null,
+    "embeds": [
+      {
+        "title": "roll",
+        "description": "```bash\n/roll [nh]\n```\n> rola contra um nível de habilidade informado e obtém resultado de rolagem informando a margem de sucesso .",
+        "color": 5572302
+      },
+      {
+        "title": "chance",
+        "description": "```bash\n/chance\n```\n> mostra a probabilidade de sucesso, falhas e críticos em uma rolagem de 3d6 em todas as possibilidades do sino.",
+        "color": 5572302
+      }
+    ],
+    "username": "fnord_",
+    "avatar_url": "https://i.imgur.com/s1AVkCg.png",
+    "attachments": []
+  }

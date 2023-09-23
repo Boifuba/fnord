@@ -1,0 +1,188 @@
+{
+  "name": "Critical Hit",
+  "img": "systems/gurps/icons/single-die.webp",
+  "description": "No <i>Active Defense</i>.",
+  "results": [
+    {
+      "_id": "xN95eT0cxU4TYUym",
+      "flags": {},
+      "type": 0,
+      "text": "<b> </b> <br /><b>Triple damage!</b>",
+      "img": "modules/gurps-instant-defaults/img/icons/critical.png",
+      "weight": 1,
+      "range": [3, 3],
+      "drawn": false,
+      "documentCollection": "",
+      "documentId": null
+    },
+    {
+      "_id": "agQF6OQ6xZRuwpFP",
+      "flags": {},
+      "type": 0,
+      "text": "<b> </b> <br />Target's DR protects at half value (round down) after armor divisors.",
+      "img": "modules/gurps-instant-defaults/img/icons/critical.png",
+      "weight": 1,
+      "range": [4, 4],
+      "drawn": false,
+      "documentCollection": "",
+      "documentId": null
+    },
+    {
+      "_id": "vMTfHozQXIDx3Saj",
+      "flags": {},
+      "type": 0,
+      "text": "<b> </b> <br /><b>Double damage!</b>",
+      "img": "modules/gurps-instant-defaults/img/icons/critical.png",
+      "weight": 1,
+      "range": [5, 5],
+      "drawn": false,
+      "documentCollection": "",
+      "documentId": null
+    },
+    {
+      "_id": "RBtw6GitvMiWJZ0r",
+      "flags": {},
+      "type": 0,
+      "text": "<b> </b> <br />Maximum normal damage.",
+      "img": "modules/gurps-instant-defaults/img/icons/critical.png",
+      "weight": 1,
+      "range": [6, 6],
+      "drawn": false,
+      "documentCollection": "",
+      "documentId": null
+    },
+    {
+      "_id": "pPtaZfA2A7Z7yTZj",
+      "flags": {},
+      "type": 0,
+      "text": "<b> </b> <br />If <i>any</i> damage penetrates DR, treat it as a <i>Major Wound</i>, regardless of actual injury inflicted.",
+      "img": "modules/gurps-instant-defaults/img/icons/critical.png",
+      "weight": 1,
+      "range": [7, 7],
+      "drawn": false,
+      "documentCollection": "",
+      "documentId": null
+    },
+    {
+      "_id": "88F8iEg436PdDrE5",
+      "flags": {},
+      "type": 0,
+      "text": "<b> </b> <br />If <i>any</i> damage penetrates DR, it causes double normal shock penalty (maximum of -8). <br />If the location struck was a limb or extremity, it is \"crippled\" (for HT-16 seconds, minimum of 2, unless the attack would have crippled the location anyway).",
+      "img": "modules/gurps-instant-defaults/img/icons/critical.png",
+      "weight": 1,
+      "range": [8, 8],
+      "drawn": false,
+      "documentCollection": "",
+      "documentId": null
+    },
+    {
+      "_id": "vHfCsClJfzTRBQlN",
+      "flags": {},
+      "type": 0,
+      "text": "<b> </b> <br />Normal damage only.",
+      "img": "modules/gurps-instant-defaults/img/icons/critical.png",
+      "weight": 1,
+      "range": [9, 11],
+      "drawn": false,
+      "documentCollection": "",
+      "documentId": null
+    },
+    {
+      "_id": "CfqZxbq45Bs66gpz",
+      "flags": {},
+      "type": 0,
+      "text": "<b> </b> <br />Normal damage, plus target drops anything he was holding (even if no damage penetrates DR).",
+      "img": "modules/gurps-instant-defaults/img/icons/critical.png",
+      "weight": 1,
+      "range": [12, 12],
+      "drawn": false,
+      "documentCollection": "",
+      "documentId": null
+    },
+    {
+      "_id": "RnShG5lJIVBCfWn9",
+      "flags": {},
+      "type": 0,
+      "text": "<b> </b> <br />If <i>any</i> damage penetrates DR, treat it as a <i>Major Wound</i>, regardless of actual injury inflicted.",
+      "img": "modules/gurps-instant-defaults/img/icons/critical.png",
+      "weight": 1,
+      "range": [13, 14],
+      "drawn": false,
+      "documentCollection": "",
+      "documentId": null
+    },
+    {
+      "_id": "Bu4MCuphVtVtliaU",
+      "flags": {},
+      "type": 0,
+      "text": "<b> </b> <br />Maximum normal damage.",
+      "img": "modules/gurps-instant-defaults/img/icons/critical.png",
+      "weight": 1,
+      "range": [15, 15],
+      "drawn": false,
+      "documentCollection": "",
+      "documentId": null
+    },
+    {
+      "_id": "8k4mf9cJqRZIxAXf",
+      "flags": {},
+      "type": 0,
+      "text": "<b> </b> <br /><b>Double damage!</b>",
+      "img": "modules/gurps-instant-defaults/img/icons/critical.png",
+      "weight": 1,
+      "range": [16, 16],
+      "drawn": false,
+      "documentCollection": "",
+      "documentId": null
+    },
+    {
+      "_id": "zqe1Tmx1wxzAO0Wp",
+      "flags": {},
+      "type": 0,
+      "text": "<b> </b> <br />Target's DR protects at half value (round down) after armor divisors.",
+      "img": "modules/gurps-instant-defaults/img/icons/critical.png",
+      "weight": 1,
+      "range": [17, 17],
+      "drawn": false,
+      "documentCollection": "",
+      "documentId": null
+    },
+    {
+      "_id": "Ic2DfdAH8FN6tCL2",
+      "flags": {},
+      "type": 0,
+      "text": "<b> </b> <br /><b>Triple damage!</b>",
+      "img": "modules/gurps-instant-defaults/img/icons/critical.png",
+      "weight": 1,
+      "range": [18, 18],
+      "drawn": false,
+      "documentCollection": "",
+      "documentId": null
+    }
+  ],
+  "formula": "3d6",
+  "replacement": true,
+  "displayRoll": true,
+  "folder": null,
+  "flags": {
+    "exportSource": {
+      "world": "shadowpunk",
+      "system": "gurps",
+      "coreVersion": "11.308",
+      "systemVersion": "0.16.5"
+    },
+    "importid": "BbW3mPld3R2uxRfB",
+    "core": {},
+    "cf": {
+      "id": "temp_8v3xccu1ira"
+    }
+  },
+  "_stats": {
+    "systemId": "gurps",
+    "systemVersion": "0.16.5",
+    "coreVersion": "11.308",
+    "createdTime": 1694585059815,
+    "modifiedTime": 1694585059862,
+    "lastModifiedBy": "eGH4uMe1R1v62Iz2"
+  }
+}
