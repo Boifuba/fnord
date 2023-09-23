@@ -1,17 +1,19 @@
-const mongoose = require("mongoose");
-const wordWarning = require("./src/utils/wordWarning"); // Importe a função wordFilter, ajuste o caminho conforme necessário
-const handleMessage = require("./src/utils/wordtracker");
+const mongoose = require("mongoose"); //It's my database
+const wordWarning = require("./src/utils/wordWarning"); //Warning system to badwords.
+const handleMessage = require("./src/utils/wordtracker"); //A trackers to sniff the channel looking for words
+
 const checkAndUpdateRoles = require("./src/events/giveRolebyLvl");
+
 const eventHandler = require("./src/handlers/eventHandlers");
 const youtube = require("./src/events/youtube");
 const sanitizeDatabase = require("./src/utils/sanitizador");
-const Level = require("./src/schema/Level");
+
+const Level = require("./src/schema/Level"); //this is need here only while the giveXpVoice is here.
 
 const {
   Client,
   GatewayIntentBits,
   Collection,
-  ActivityType,
 } = require(`discord.js`);
 const fs = require("fs");
 const client = new Client({
@@ -28,7 +30,7 @@ const client = new Client({
 });
 
 client.commands = new Collection();
-
+//this will get the passwd and id. Those are hidden to public view. Check .env file on root.
 require("dotenv").config();
 
 const functions = fs
@@ -46,13 +48,21 @@ const commandFolders = fs.readdirSync("./src/commands");
   client.handleCommands(commandFolders, "./src/commands");
   client.login(process.env.token);
 })();
+
+client.login(process.env.TOKEN);
+
+/*****************************************************
+ ********************** Events ************************
+ *****************************************************/
+
 //wordTracking
 client.on("messageCreate", handleMessage);
 
-// Evento `messageCreate`
+//Bad words
 client.on("messageCreate", (message) => {
   wordWarning(message);
 });
+
 //autocomplete
 client.on("interactionCreate", async (interaction) => {
   if (interaction.isAutocomplete()) {
@@ -68,7 +78,7 @@ client.on("interactionCreate", async (interaction) => {
   }
 });
 
-/////YOUTUBE
+//Youtube checker
 client.once("ready", () => {
   console.log(`✅ Youtube Announcer is runnning fine!`);
   youtube.youtube(client);
@@ -78,35 +88,7 @@ client.once("ready", () => {
   }, 60 * 60 * 1000);
 });
 
-let status = [
-  {
-    name: "O quê você deve pensar.",
-    type: ActivityType.Streaming,
-  },
-  {
-    name: "Verdades no mundo!",
-    type: ActivityType.Custom,
-  },
-  {
-    name: "Você.",
-    type: ActivityType.Watching,
-  },
-  {
-    name: "Seus pensamentos.",
-    type: ActivityType.Listening,
-  },
-];
-client.on("ready", (c) => {
-  console.log(`✅ ActivityType is working.`);
-
-  setInterval(() => {
-    let random = Math.floor(Math.random() * status.length);
-    client.user.setActivity(status[random]);
-  }, 180 * 60 * 1000);
-});
-
-client.login(process.env.TOKEN);
-
+//Mongoose connection
 (async () => {
   try {
     mongoose.set("strictQuery", false);
@@ -116,97 +98,27 @@ client.login(process.env.TOKEN);
     client.login(process.env.TOKEN);
     eventHandler(client);
   } catch (error) {
-    console.log(` ⛔ Erro de conexão do mongoose: ${error}`);
+    console.log(` ⛔ Connection error with mongoose: ${error}`);
   }
 })();
 
+/*
+func sanitizeDatabase()
 
+This function is related to the word registration system. The word JSON is filled in manually 
+and sometimes words that you don't want can enter the database. Whenever you feed the filter 
+with new words, this function will iterate through the database looking for the filter words 
+and delete them. It does not have a significant impact on resources if your server has few users. 
+Only activate it when you are actively cleaning your filter. In the future, I will make a slash command 
+for this, which is the right thing to do.
+*/
 client.once("ready", () => {
   setTimeout(async () => {
     await sanitizeDatabase();
   }, 10000);
 });
 
-// const membersList = [];
-
-// client.on("voiceStateUpdate", (oldState, newState) => {
-//   const guild = newState.guild;
-//   const channelID = "808369408241696818"; // ID do canal de voz desejado
-
-//   if (oldState.channelID === channelID && !newState.channelID) {
-//     // Membro saiu do canal de voz desejado
-//     const member = guild.members.cache.get(newState.id);
-//     if (member) {
-//       const index = membersList.indexOf(member);
-//       if (index !== -1) {
-//         membersList.splice(index, 1);
-//         console.log(
-//           `❌ ${member.user.username} saiu do canal de voz desejado.`
-//         );
-//       }
-//     }
-//   } else if (!oldState.channelID && newState.channelID === channelID) {
-//     // Membro entrou no canal de voz desejado
-//     const member = guild.members.cache.get(newState.id);
-//     if (member) {
-//       membersList.push(member);
-//       console.log(
-//         `✅ ${member.user.username} entrou no canal de voz desejado.`
-//       );
-//     }
-//   }
-// });
-// client.on("ready", () => {
-//   function checkOnlineUsers() {
-//     console.log("🔼 Checking online users");
-
-//     const xpToGive = 1;
-//     const guild = client.guilds.cache.get("721359044383866971");
-//     const channel = guild.channels.cache.get("808369408241696818");
-
-//     if (channel.type !== 2) return; // Verifique se o canal é um canal de voz
-
-//     channel.members.each(async (member) => {
-//       // Verifica se o usuário entrou no canal de voz desejado
-//       const query = {
-//         userId: member.user.id,
-//         guildId: guild.id,
-//       };
-
-//       try {
-//         const level = await Level.findOne(query);
-
-//         if (level) {
-//           level.xp += xpToGive;
-//           await level.save();
-//           console.log(
-//             `✅ ${member.user.displayName} ganhou ${xpToGive} XP por entrar no canal de voz desejado.`
-//           );
-//         } else {
-//           const newLevel = new Level({
-//             userId: member.user.id,
-//             guildId: guild.id,
-//             xp: xpToGive,
-//           });
-
-//           await newLevel.save();
-//           console.log(
-//             `✅ ${member.user.displayName} ganhou ${xpToGive} XP por entrar no canal de voz desejado.`
-//           );
-//         }
-//       } catch (error) {
-//         console.log(`⛔ Error giving xp: ${error}`);
-//       }
-//     });
-//   }
-
-//   // Executa a função a cada 10 minutos (10000 milissegundos)
-//   setInterval(async () => {
-//     await checkOnlineUsers();
-//   }, 10000);
-// });
-
-
+//This need to me removed from here for aesthetics and functionalities
 const membersList = [];
 
 client.on("voiceStateUpdate", (oldState, newState) => {
@@ -238,17 +150,16 @@ client.on("voiceStateUpdate", (oldState, newState) => {
 });
 client.on("ready", () => {
   function checkOnlineUsers() {
-    console.log("🔼 Checking online users");
+    //console.log("🔼 Checking online users"); This only need to be here when you need to gibe maintenance.
 
     const xpToGive = 1;
     const guild = client.guilds.cache.get("721359044383866971");
     const channel = guild.channels.cache.get("808369408241696818");
 
-    if (channel.type !== 2) return; // Verifique se o canal é um canal de voz
+    if (channel.type !== 2) return; 
 
     channel.members.each(async (member) => {
-      // Verifica se o usuário entrou no canal de voz desejado
-      const query = {
+       const query = {
         userId: member.user.id,
         guildId: guild.id,
       };
