@@ -56,15 +56,12 @@ module.exports = {
         .setDescription(`${response}`)
         .setThumbnail("https://i.imgur.com/s1AVkCg.png");
 
-      await interaction.channel.send({ embeds: [embedmain] });
-      // await interaction.reply({
-      //   content: `As 10 palavras mais usadas e quem mais as falou são:\n${}`,
-      //   ephemeral: true,
-      // });
+      await interaction.reply({ embeds: [embedmain], ephemeral: true });
+  
     } catch (error) {
-      console.error(`Erro ao listar as palavras mais usadas: ${error}`);
+      console.error(`⛔ Erro ao listar as palavras mais usadas: ${error}`);
       await interaction.reply(
-        "Ocorreu um erro ao listar as palavras mais usadas."
+        "⛔ Ocorreu um erro ao listar as palavras mais usadas."
       );
     }
   },
