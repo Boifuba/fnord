@@ -100,7 +100,7 @@ module.exports = {
       await userProfile.save();
 
       await interaction.editReply({
-        message: `Added ${amount} xp to ${user.username} for campaign ${campaign}`,
+        content: `Added ${amount} xp to ${user.username} for campaign ${campaign}`,
         ephemeral: true,
       });
     }
@@ -139,9 +139,7 @@ module.exports = {
         }
       });
 
-      await Promise.all(memberPromises);
-      await interaction.editReply("# fnord");
-      await wait(1000);
+   
       await interaction.editReply(
         `🔥 Todos os jogadores de ${campaign} receberam xp!`
       );
@@ -172,7 +170,7 @@ module.exports = {
       await userProfile.save();
 
       await interaction.editReply({
-        message: `Subtracted ${amount} xp from ${user.username} for campaign ${campaign}`,
+        content: `Subtracted ${amount} xp from ${user.username} for campaign ${campaign}`,
         ephemeral: true,
       });
     }

@@ -232,7 +232,7 @@ module.exports = {
     }
 
     var poderAleatorio = mostrarPoder();
-    console.log(poderAleatorio);
+    
 
     const dado = Math.floor(Math.random() * 6) + 1;
     const pontuacao = 200 + dado * 50;
@@ -249,6 +249,6 @@ module.exports = {
         inline: true,
       });
 
-    await interaction.reply({ embeds: [embed] });
+    await interaction.reply({ embeds: [embed], ephemeral: true });
   },
 };
