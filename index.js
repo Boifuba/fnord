@@ -75,15 +75,15 @@ client.on("interactionCreate", async (interaction) => {
   }
 });
 
-// //Youtube checker
-// client.once("ready", () => {
-//   console.log(`✅ Youtube Announcer is runnning fine!`);
-//   youtube.youtube(client);
+//Youtube checker
+client.once("ready", () => {
+  console.log(`✅ Youtube Announcer is runnning fine!`);
+  youtube.youtube(client);
 
-//   setInterval(() => {
-//     youtube.youtube();
-//   }, 70 * 60 * 1000);
-// });
+  setInterval(() => {
+    youtube.youtube();
+  }, 70 * 60 * 1000);
+});
 
 //Mongoose connection
 (async () => {
