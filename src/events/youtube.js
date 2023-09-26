@@ -10,6 +10,7 @@ const channelIds = [
   "UCCkIJHK5KYpWb58YyAqTWKg", // GURPS na veia
   "UC4-7okrLZK2sfwINnqZNVog", // Chris Normand
   "UCRhm02S_o1oktdjfj6JTlTA",
+  "UCS99XfR4yUuxeVYUxV5nigA"
   // Adicione mais IDs de canal conforme necessário
 ];
 
@@ -76,7 +77,7 @@ async function youtube(client) {
       }
     }
   } catch (error) {
-    console.error("⛔ Erro na função principal:", "SEM TOKENS");
+    console.error("⛔ Youtube:", "SEM TOKENS");
   }
 }
 

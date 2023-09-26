@@ -1,18 +1,15 @@
 const mongoose = require("mongoose"); //It's my database
 const wordWarning = require("./src/utils/wordWarning"); //Warning system to badwords.
 const handleMessage = require("./src/utils/wordtracker"); //A trackers to sniff the channel looking for words
-
 const checkAndUpdateRoles = require("./src/events/giveRolebyLvl");
-
 const eventHandler = require("./src/handlers/eventHandlers");
 const youtube = require("./src/events/youtube");
 const sanitizeDatabase = require("./src/utils/sanitizador");
 
-const Level = require("./src/schema/Level"); //this is need here only while the giveXpVoice is here.
-
 const {
   Client,
   GatewayIntentBits,
+  ActivityType,
   Collection,
 } = require(`discord.js`);
 const fs = require("fs");
@@ -78,15 +75,15 @@ client.on("interactionCreate", async (interaction) => {
   }
 });
 
-//Youtube checker
-client.once("ready", () => {
-  console.log(`✅ Youtube Announcer is runnning fine!`);
-  youtube.youtube(client);
+// //Youtube checker
+// client.once("ready", () => {
+//   console.log(`✅ Youtube Announcer is runnning fine!`);
+//   youtube.youtube(client);
 
-  setInterval(() => {
-    youtube.youtube();
-  }, 60 * 60 * 1000);
-});
+//   setInterval(() => {
+//     youtube.youtube();
+//   }, 70 * 60 * 1000);
+// });
 
 //Mongoose connection
 (async () => {
@@ -101,6 +98,7 @@ client.once("ready", () => {
     console.log(` ⛔ Connection error with mongoose: ${error}`);
   }
 })();
+checkAndUpdateRoles(client);
 
 /*
 func sanitizeDatabase()
@@ -148,51 +146,33 @@ client.on("voiceStateUpdate", (oldState, newState) => {
     }
   }
 });
-client.on("ready", () => {
-  function checkOnlineUsers() {
-    //console.log("🔼 Checking online users"); This only need to be here when you need to gibe maintenance.
 
-    const xpToGive = 1;
-    const guild = client.guilds.cache.get("721359044383866971");
-    const channel = guild.channels.cache.get("808369408241696818");
+//pick presence
 
-    if (channel.type !== 2) return; 
 
-    channel.members.each(async (member) => {
-       const query = {
-        userId: member.user.id,
-        guildId: guild.id,
-      };
+let status = [
+  {
+    name: "Tem regras para cavar buraco",
+    type: ActivityType.Custom,
+  },
+  {
+    name: "Sistema muito lento",
+    type: ActivityType.Custom,
+  },
+  {
+    name: "GURPS é difícil.",
+    type: ActivityType.Custom,
+  },
+  {
+    name: "Tem regra para tudo.",
+    type: ActivityType.Custom,
+  },
+];
+client.on("ready", (c) => {
+  console.log(`✅ ActivityType is working.`);
 
-      try {
-        const level = await Level.findOne(query);
-
-        if (level) {
-          level.xp += xpToGive;
-          await level.save();
-          console.log(
-            `✅ ${member.user.displayName} ganhou ${xpToGive} XP por entrar no canal de voz desejado.`
-          );
-        } else {
-          const newLevel = new Level({
-            userId: member.user.id,
-            guildId: guild.id,
-            xp: xpToGive,
-          });
-
-          await newLevel.save();
-          console.log(
-            `✅ ${member.user.displayName} ganhou ${xpToGive} XP por entrar no canal de voz desejado.`
-          );
-        }
-      } catch (error) {
-        console.log(`⛔ Error giving xp: ${error}`);
-      }
-    });
-  }
-
-  // Executa a função a cada 10 minutos (10000 milissegundos)
-  setInterval(async () => {
-    await checkOnlineUsers();
-  }, 600000);
+  setInterval(() => {
+    let random = Math.floor(Math.random() * status.length);
+    client.user.setActivity(status[random]);
+  }, 10000);
 });
