@@ -35,7 +35,8 @@ async function handleMessage(msg) {
   try {
     await user.save();
   } catch (error) {
-    console.error(`Erro ao salvar usuário no banco de dados: ${error}`);
+    // esse catch é pq quando ele vai salvar uma imagem dá erro pra caralho
+    //console.error(`Erro ao salvar usuário no banco de dados: ${error}`);
   }
 }
 
