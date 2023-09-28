@@ -64,12 +64,6 @@ const commandsList = client.commands
   .map((command) => `- ${command.data.name}`)
   .join("\n");
 
-  const {robot } = require("cowsay");
-
-
-
-
-
 const cowText = `${commandsList}`;
 const cowOptions = {
   e: "cO",
