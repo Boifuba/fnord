@@ -1,13 +1,14 @@
-const mongoose = require("mongoose"); //It's my database
-const wordWarning = require("./src/utils/wordWarning"); //Warning system to badwords.
-const handleMessage = require("./src/utils/wordtracker"); //A trackers to sniff the channel looking for words
+const mongoose = require("mongoose"); 
+const wordWarning = require("./src/utils/wordWarning"); 
+const handleMessage = require("./src/utils/wordtracker"); 
 const checkAndUpdateRoles = require("./src/events/giveRolebyLvl");
 const eventHandler = require("./src/handlers/eventHandlers");
 const youtube = require("./src/events/youtube");
 const sanitizeDatabase = require("./src/utils/sanitizador");
+const cowsay = require("cowsay");
 
 const {
-  Client,
+  Client, 
   GatewayIntentBits,
   ActivityType,
   Collection,
@@ -26,9 +27,15 @@ const client = new Client({
   ],
 });
 
+
+
 client.commands = new Collection();
 //this will get the passwd and id. Those are hidden to public view. Check .env file on root.
 require("dotenv").config();
+
+
+
+
 
 const functions = fs
   .readdirSync("./src/functions")
@@ -52,6 +59,30 @@ client.login(process.env.TOKEN);
  ********************** Events ************************
  *****************************************************/
 
+// Seu código de obtenção de comandos...
+const commandsList = client.commands
+  .map((command) => `- ${command.data.name}`)
+  .join("\n");
+
+  const {robot } = require("cowsay");
+
+
+
+
+
+const cowText = `${commandsList}`;
+const cowOptions = {
+  e: "cO",
+  T: " U",
+  f: "fence"
+  };
+
+console.log(
+  cowsay.think({
+      text: cowText,
+    ...cowOptions,
+  })
+);
 //wordTracking
 client.on("messageCreate", handleMessage);
 
@@ -82,7 +113,7 @@ client.on("interactionCreate", async (interaction) => {
 
 //   setInterval(() => {
 //     youtube.youtube();
-//   }, 70 * 60 * 1000);
+//   }, 90 * 60 * 1000);
 // });
 
 //Mongoose connection
@@ -100,52 +131,42 @@ client.on("interactionCreate", async (interaction) => {
 })();
 checkAndUpdateRoles(client);
 
-/*
-func sanitizeDatabase()
-
-This function is related to the word registration system. The word JSON is filled in manually 
-and sometimes words that you don't want can enter the database. Whenever you feed the filter 
-with new words, this function will iterate through the database looking for the filter words 
-and delete them. It does not have a significant impact on resources if your server has few users. 
-Only activate it when you are actively cleaning your filter. In the future, I will make a slash command 
-for this, which is the right thing to do.
-*/
 client.once("ready", () => {
   setTimeout(async () => {
     await sanitizeDatabase();
   }, 10000);
 });
 
-//This need to me removed from here for aesthetics and functionalities
-const membersList = [];
+// //This need to me removed from here for aesthetics and functionalities
+// const membersList = [];
 
-client.on("voiceStateUpdate", (oldState, newState) => {
-  const guild = newState.guild;
-  const channelID = "808369408241696818"; // ID do canal de voz desejado
+// client.on("voiceStateUpdate", (oldState, newState) => {
+//   const guild = newState.guild;
+//   const channelID = "808369408241696818"; // ID do canal de voz desejado
 
-  if (oldState.channelID === channelID && !newState.channelID) {
-    // Membro saiu do canal de voz desejado
-    const member = guild.members.cache.get(newState.id);
-    if (member) {
-      const index = membersList.indexOf(member);
-      if (index !== -1) {
-        membersList.splice(index, 1);
-        console.log(
-          `❌ ${member.user.username} saiu do canal de voz desejado.`
-        );
-      }
-    }
-  } else if (!oldState.channelID && newState.channelID === channelID) {
-    // Membro entrou no canal de voz desejado
-    const member = guild.members.cache.get(newState.id);
-    if (member) {
-      membersList.push(member);
-      console.log(
-        `✅ ${member.user.username} entrou no canal de voz desejado.`
-      );
-    }
-  }
-});
+//   if (oldState.channelID === channelID && !newState.channelID) {
+//     // Membro saiu do canal de voz desejado
+//     const member = guild.members.cache.get(newState.id);
+//     if (member) {
+//       const index = membersList.indexOf(member);
+//       if (index !== -1) {
+//         membersList.splice(index, 1);
+//         console.log(
+//           `❌ ${member.user.username} saiu do canal de voz desejado.`
+//         );
+//       }
+//     }
+//   } else if (!oldState.channelID && newState.channelID === channelID) {
+//     // Membro entrou no canal de voz desejado
+//     const member = guild.members.cache.get(newState.id);
+//     if (member) {
+//       membersList.push(member);
+//       console.log(
+//         `✅ ${member.user.username} entrou no canal de voz desejado.`
+//       );
+//     }
+//   }
+// });
 
 //pick presence
 
@@ -176,3 +197,22 @@ client.on("ready", (c) => {
     client.user.setActivity(status[random]);
   }, 10000);
 });
+
+
+
+
+const welcomeEvent = require("./src/events/welcomeEvent");
+client.on("guildMemberAdd", (member) => {
+  welcomeEvent(member);
+});
+const logAddEvent = require("./src/events/logAdd");
+client.on("guildMemberAdd", (member) => {
+  logAddEvent(member);
+});
+
+const guildMemberRemove = require("./src/events/logRemove");
+client.on("guildMemberRemove", (member) => {
+  guildMemberRemove(member);
+});
+
+

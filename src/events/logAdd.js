@@ -4,7 +4,7 @@ module.exports = async (member) => {
   const channelId = "1053072305129013248";
 
   const embed = {
-    color: 0x99ff00,
+    color: 0x5506ce,
     title: `Um membro entrou. `,
     description: ` <@${member.user.username}> entrou no servidor `,
     thumbnail: {
@@ -20,5 +20,4 @@ module.exports = async (member) => {
   } else {
     console.error(`Canal de log não encontrado (ID: ${channelId})`);
   }
-  console.log("🔥 Função addLog concluída.");
 };

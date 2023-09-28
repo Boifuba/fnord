@@ -4,7 +4,7 @@ module.exports = async (member) => {
   const channelId = "1053072305129013248";
 
   const embed = {
-    color: 0xff1a00,
+    color: 0x5506ce,
     title: `Um membro saiu. `,
     description: ` ${member.user.username} saiu do servidor`,
     thumbnail: {

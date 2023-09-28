@@ -1,10 +1,13 @@
-const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
-const vantagensJSON = require("../../json/massCombat.json"); 
+const { SlashCommandBuilder,  PermissionFlagsBits, EmbedBuilder } = require("discord.js");
+
+
+const vantagensJSON = require("../../json/conan/npc.json"); 
 
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("conan")
-    .setDescription("Autocomplete test")
+    .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
+    .setDescription("conan npc")
     .addStringOption((o) =>
       o
         .setName("query")
@@ -42,9 +45,11 @@ module.exports = {
     // Exiba as informações da vantagem
     const embed = new EmbedBuilder();
     embed.setColor(0x5506ce)
+         .setImage(vantagem.image)
          .setTitle(vantagem.name)
-         .setDescription(`${vantagem.description}\n`);
+         .setDescription(vantagem.description
+          );
     
-    await interaction.reply({ embeds: [embed] });
+    await interaction.reply({ embeds: [embed], ephemeral: true });
   },
 };
