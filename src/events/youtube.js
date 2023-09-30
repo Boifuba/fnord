@@ -10,7 +10,8 @@ const channelIds = [
   "UCCkIJHK5KYpWb58YyAqTWKg", // GURPS na veia
   "UC4-7okrLZK2sfwINnqZNVog", // Chris Normand
   "UCRhm02S_o1oktdjfj6JTlTA",
-  "UCS99XfR4yUuxeVYUxV5nigA"
+  "UCS99XfR4yUuxeVYUxV5nigA",
+  "UCZwU2G-KVl-P-O-B35chZOQ" //History Hit
   // Adicione mais IDs de canal conforme necessário
 ];
 
@@ -72,7 +73,7 @@ async function youtube(client) {
           existingVideo.videoTitle = videoTitle;
           existingVideo.save();
         } else {
-          console.log(`🎬 ${channelTitle} Não tem novidades.`);
+         // console.log(`🎬 ${channelTitle} Não tem novidades.`);
         }
       }
     }

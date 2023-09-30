@@ -28,14 +28,9 @@ const client = new Client({
 });
 
 
-
 client.commands = new Collection();
 //this will get the passwd and id. Those are hidden to public view. Check .env file on root.
 require("dotenv").config();
-
-
-
-
 
 const functions = fs
   .readdirSync("./src/functions")
@@ -68,7 +63,7 @@ const cowText = `${commandsList}`;
 const cowOptions = {
   e: "cO",
   T: " U",
-  f: "fence"
+  //f: "cow"
   };
 
 console.log(
@@ -107,7 +102,7 @@ client.on("interactionCreate", async (interaction) => {
 
 //   setInterval(() => {
 //     youtube.youtube();
-//   }, 90 * 60 * 1000);
+//   }, 180 * 60 * 1000);
 // });
 
 //Mongoose connection
@@ -131,66 +126,6 @@ client.once("ready", () => {
   }, 10000);
 });
 
-// //This need to me removed from here for aesthetics and functionalities
-// const membersList = [];
-
-// client.on("voiceStateUpdate", (oldState, newState) => {
-//   const guild = newState.guild;
-//   const channelID = "808369408241696818"; // ID do canal de voz desejado
-
-//   if (oldState.channelID === channelID && !newState.channelID) {
-//     // Membro saiu do canal de voz desejado
-//     const member = guild.members.cache.get(newState.id);
-//     if (member) {
-//       const index = membersList.indexOf(member);
-//       if (index !== -1) {
-//         membersList.splice(index, 1);
-//         console.log(
-//           `❌ ${member.user.username} saiu do canal de voz desejado.`
-//         );
-//       }
-//     }
-//   } else if (!oldState.channelID && newState.channelID === channelID) {
-//     // Membro entrou no canal de voz desejado
-//     const member = guild.members.cache.get(newState.id);
-//     if (member) {
-//       membersList.push(member);
-//       console.log(
-//         `✅ ${member.user.username} entrou no canal de voz desejado.`
-//       );
-//     }
-//   }
-// });
-
-//pick presence
-
-
-let status = [
-  {
-    name: "Tem regras para cavar buraco",
-    type: ActivityType.Custom,
-  },
-  {
-    name: "Sistema muito lento",
-    type: ActivityType.Custom,
-  },
-  {
-    name: "GURPS é difícil.",
-    type: ActivityType.Custom,
-  },
-  {
-    name: "Tem regra para tudo.",
-    type: ActivityType.Custom,
-  },
-];
-client.on("ready", (c) => {
-  console.log(`✅ ActivityType is working.`);
-
-  setInterval(() => {
-    let random = Math.floor(Math.random() * status.length);
-    client.user.setActivity(status[random]);
-  }, 10000);
-});
 
 
 
@@ -208,5 +143,11 @@ const guildMemberRemove = require("./src/events/logRemove");
 client.on("guildMemberRemove", (member) => {
   guildMemberRemove(member);
 });
+//log de entrada em canal, nada haver com o sistema de xp
 
+client.on('voiceStateUpdate', (oldState, newState) => {
+  if (!oldState.channel && newState.channel) {
 
+    console.log(`🔥 ${newState.member.user.displayName} is on: ${newState.channel.name}`);
+  }
+});

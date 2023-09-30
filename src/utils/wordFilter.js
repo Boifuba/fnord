@@ -193,6 +193,12 @@ preposicoes_e_artigos = [
   "fui",
   "lá",
   "la",
+  "ver",
+  "era",
+  "ser",
+  "depois",
+  "tenho",
+  `,`,
 
 
 

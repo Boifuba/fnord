@@ -32,7 +32,7 @@ module.exports = {
       wordCountArray.sort((a, b) => b[1].count - a[1].count);
 
       // Pega as 10 palavras mais usadas
-      const topWords = wordCountArray.slice(0, 10);
+      const topWords = wordCountArray.slice(0, 11);
 
       // Constrói uma resposta com as palavras mais usadas e quem mais as falou
       const response = topWords
