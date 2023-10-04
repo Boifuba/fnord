@@ -29,7 +29,13 @@ module.exports = async (client, message, xpPerLevel) => {
 
   try {
     const level = await Level.findOne(query);
-    const xpToGive = getRandomXp(1, 2);
+    let xpToGive = getRandomXp(1, 2);
+
+
+    if (message.attachments.size > 0) {
+   
+      xpToGive *= message.attachments.size;
+    }
 
     if (level) {
       level.xp += xpToGive;
@@ -53,7 +59,7 @@ module.exports = async (client, message, xpPerLevel) => {
       cooldowns.add(message.author.id);
       setTimeout(() => {
         cooldowns.delete(message.author.id);
-      }, 60000);
+      }, 100);
     } else {
       const newLevel = new Level({
         userId: message.author.id,
@@ -65,7 +71,7 @@ module.exports = async (client, message, xpPerLevel) => {
       cooldowns.add(message.author.id);
       setTimeout(() => {
         cooldowns.delete(message.author.id);
-      }, 60000);
+      }, 100);
     }
   } catch (error) {
     console.log(`⛔ Error giving xp: ${error}`);

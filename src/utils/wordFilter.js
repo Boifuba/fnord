@@ -199,6 +199,9 @@ preposicoes_e_artigos = [
   "depois",
   "tenho",
   `,`,
+  "for",
+  "are",
+  "só"
 
 
 

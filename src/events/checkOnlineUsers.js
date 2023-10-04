@@ -5,10 +5,10 @@ module.exports = {
   name: "ready",
   once: true,
   async execute(client) {
-   // console.log(`✅ Bot is working.`);
+    console.log(`✅ Bot is working.`);
 
     async function checkOnlineUsers() {
-      console.log("🔼 Checking online users");
+//      console.log("🔼 Checking online users");
 
       const xpToGive = 1;
       const guild = client.guilds.cache.get("721359044383866971");
@@ -52,3 +52,5 @@ module.exports = {
     }, 600000);
   },
 };
+
+

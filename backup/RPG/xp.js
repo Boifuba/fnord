@@ -1,7 +1,7 @@
 const { SlashCommandBuilder } = require("discord.js");
 const { EmbedBuilder } = require("@discordjs/builders");
 const profileModel = require("../../schema/profileSchema");
-
+const timeString = require("../../src/utils/time")
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("xplista")
@@ -21,11 +21,13 @@ module.exports = {
     let leaderboardEmbed = new EmbedBuilder()
       .setTitle("Tabela de XP")
       .setColor(0x5506ce)
-      .setThumbnail("https://i.imgur.com/902zrCA.png");
+      .setThumbnail("https://i.imgur.com/902zrCA.png")
+      .setTimestamp()
+      .setFooter({ text: "ddd", iconURL: 'https://i.imgur.com/AfFp7pu.png' });
 
     let campaignRole = interaction.options.getRole("campaign");
     let members = [];
-
+awdadawd
     if (campaignRole) {
       // If a campaign role is provided, fetch members with that role
       members = await profileModel
