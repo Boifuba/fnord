@@ -74,6 +74,7 @@
       ...cowOptions,
     })
   );
+
   //wordTracking
   client.on("messageCreate", handleMessage);
 
@@ -98,14 +99,14 @@
   });
 
   //Youtube checker
-  // client.once("ready", () => {
-  //   console.log(`✅ Youtube Announcer is runnning fine!`);
-  //   youtube.youtube(client);
+  client.once("ready", () => {
+    console.log(`✅ Youtube Announcer is runnning fine!`);
+    youtube.youtube(client);
 
-  //   setInterval(() => {
-  //     youtube.youtube();
-  //   }, 180 * 60 * 1000);
-  // });
+    setInterval(() => {
+      youtube.youtube();
+    }, 180 * 60 * 1000);
+  });
 
   //Mongoose connection
   (async () => {
@@ -120,6 +121,7 @@
       console.log(` ⛔ Connection error with mongoose: ${error}`);
     }
   })();
+
   checkAndUpdateRoles(client);
 
   client.once("ready", () => {
@@ -127,9 +129,6 @@
       await sanitizeDatabase();
     }, 10000);
   });
-
-
-
 
 
   const welcomeEvent = require("./src/events/welcomeEvent");
@@ -145,6 +144,7 @@
   client.on("guildMemberRemove", (member) => {
     guildMemberRemove(member);
   });
+
   //log de entrada em canal, nada haver com o sistema de xp
 
   client.on('voiceStateUpdate', (oldState, newState) => {
@@ -154,10 +154,7 @@
     }
   });
 
-
-
 client.on("messageCreate", (message) => {
   xpToGive(client, message);
 });
  
-

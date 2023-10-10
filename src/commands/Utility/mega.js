@@ -38,9 +38,9 @@ module.exports = {
           inline: true,
         },
         {
-          name: "DRIVE",
+          name: "Livros pt_BR",
           value:
-            "[DOWNLOAD](https://drive.google.com/drive/folders/1gse_PL8ku4k9Vbaqi9vxaFphqv4YlJco?usp=sharing)",
+            "[DOWNLOAD](https://drive.google.com/drive/folders/1fFD-8-qAidbAuyB5SIb8jjm6AaXM-r2B?usp=drive_link)",
           inline: true,
         }
       );

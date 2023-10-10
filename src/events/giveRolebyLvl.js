@@ -1,7 +1,6 @@
 // Importações
-const { EmbedBuilder } = require("discord.js"); // Importe a classe MessageEmbed se ainda não estiver importada
+const { EmbedBuilder } = require("discord.js"); 
 const wait = require("node:timers/promises").setTimeout;
-
 const Level = require("../schema/Level");
 
 // Definição da matriz de cargos
@@ -12,7 +11,7 @@ const cargos = [
   { id: "1146367108654047302", nome: "Personagem do Jogador" },
   { id: "1146367258189365348", nome: "Jogador Mediano" },
   { id: "1146367454885453864", nome: "Jogador Competente" },
-  { id: "1146367541913075742", nome: "Jogador Talentoso" }, //------------
+  { id: "1146367541913075742", nome: "Jogador Talentoso" }, 
   { id: "1146367786822664262", nome: "Exceptional" },
   { id: "1146367927826788372", nome: "Heroic" },
   { id: "1146368050665357322", nome: "Large-than-life" },

@@ -1,21 +1,49 @@
 [
-  {
-    "name": "Ozlyak",
-    "description": "troloeloe",
-    "image": "https://i.imgur.com/pdy1RIF.jpg"
+   {
+    "name": "Lorde Elliot de Lucethern.",
+    "description": "Escriturário do Reino da Borda responsável pelo recolhimento de taxas aduaneiras entre a Ciméria o Reino da Borda. Vive confortavelmente em Lucethern e tem influência com o rei e outros nobres.",
+    "image": "https://i.imgur.com/pe5BQz7.png",
+    "country": "Reinos da Borda",
+    "tribe": "Lowland Fliefs",
+    "clan": "\u200B",
+    "title": "Nobre"
+  },
+ {
+    "name": "Kaervell mac Morgh ",
+    "description": "Esteve em várias batalhas na história da Cimméria, é um guerreiro muito respeito tanto pela astúcia quando por sua habilidade em combate. Não acredita em reis e pensa que não deve haver poder maior do quê um chefe tribal.",
+    "image": "https://i.imgur.com/ma6IDul.jpg",
+    "country": "Ciméria",
+    "tribe": "Dal Cais",
+    "clan": "Sheah",
+    "title": "Líder de Clã"
   },
   {
-    "name": "Elliot",
-    "description": "troloeloe",
-    "image": "https://i.imgur.com/pe5BQz7.png"
+    "name": "Taedek de Creehan ",
+    "description": "Ele é um dos principais líderes dos Fianna. Lendas contam de quando entrou com 5 homens na Hyperbórea para resgatar parentes que foram sequestrados para serem escravizados.",
+    "image": "https://i.imgur.com/ptuGK4s.jpg",
+    "country": "Ciméria",
+    "tribe": "Fianna",
+    "clan": "Creehan",
+    "title": "Líder de Clã"
   },
   {
-    "name": "Ozlyak",
-    "description": "troloeloe",
-    "image": "https://i.imgur.com/pdy1RIF.jpg"
-  },{
-    "name": "Ozlyak",
-    "description": "troloeloe",
-    "image": "https://i.imgur.com/pdy1RIF.jpg"
-  }
+    "name": "Skornin Drogin",
+    "description": "Ele é fruto de uma política de unificação dos clãs do Norte com os do Oeste. Perspicaz e expansionista, sempre está ávido por expandir seus poderes.",
+    "image": "https://i.imgur.com/g9vKlnh.jpg",
+    "country": "Ciméria",
+    "tribe": "Dal Cais",
+    "clan": "Conn",
+    "title": "Líder de Tribo"
+},
+{
+  "name": " Athta Connan",
+  "description": "O homem mais rico e poderoso da Ciméria, todas as outras tribos o temem.",
+  "image": "https://i.imgur.com/NYPS4aU.jpg",
+  "country": "Ciméria",
+  "tribe": "Ciannechta",
+  "clan": "Rhynne",
+  "title": "Rei"
+}
 ]
+
+

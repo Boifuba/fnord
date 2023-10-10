@@ -10,15 +10,7 @@ function todayGame() {
   //   5: Sexta-feira
   //   6: Sábado
   switch (diaDaSemana) {
-    case 0:
-      todayTitle = "GURPS ShadowPunk";
-      todayImg = "https://i.imgur.com/2jcYZfN.png";
-      todayText =
-        "Em um mundo de redes e realidades virtuais, onde você nunca sabe quem está do outro lado do monitor, a única coisa que importa é o que você faz.";
-      todayThumbnail = "https://i.imgur.com/2jcYZfN.png";
-      todayTime = [{ name: "Horário", value: "Domingos 15:00", inline: true }];
-      todayColor = 0x5506ce;
-      break;
+    
     case 3: // Quarta-feira
       todayTitle = "GURPS Conan";
       todayImg = "https://i.imgur.com/lpneqJo.png";

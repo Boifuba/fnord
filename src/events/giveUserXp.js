@@ -40,7 +40,7 @@ module.exports = async (client, message, xpPerLevel) => {
     if (level) {
       level.xp += xpToGive;
 
-      console.log(`✅ ${message.member.displayName}: ${level.xp}/${calculateLevelXp(level.level)} XP`);
+      //console.log(`✅ ${message.member.displayName}: ${level.xp}/${calculateLevelXp(level.level)} XP`);
       
 
       if (level.xp >= calculateLevelXp(level.level)) {

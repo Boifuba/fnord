@@ -201,7 +201,11 @@ preposicoes_e_artigos = [
   `,`,
   "for",
   "are",
-  "só"
+  "só",
+  "boi",
+  `@Boi`,
+  "<@Boi>"
+  
 
 
 

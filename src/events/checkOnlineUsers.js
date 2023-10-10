@@ -5,7 +5,7 @@ module.exports = {
   name: "ready",
   once: true,
   async execute(client) {
-    console.log(`✅ Bot is working.`);
+    console.info(`✅ Bot is working.`);
 
     async function checkOnlineUsers() {
 //      console.log("🔼 Checking online users");
@@ -28,9 +28,9 @@ module.exports = {
           if (level) {
             level.xp += xpToGive;
             await level.save();
-            console.log(
-              `✅ ${member.user.displayName} earned ${xpToGive} ${level.xp}/${calculateLevelXp(level.level)} `
-            );
+          //  console.log(
+          //    `✅ ${member.user.displayName} earned ${xpToGive} ${level.xp}/${calculateLevelXp(level.level)} `
+          //  );
           } else {
             const newLevel = new Level({
               userId: member.user.id,
@@ -41,7 +41,7 @@ module.exports = {
             await newLevel.save();
              }
         } catch (error) {
-          console.log(`⛔ Error giving xp: ${error}`);
+          console.warn(`⛔ Error giving xp: ${error}`);
         }
       });
     }
