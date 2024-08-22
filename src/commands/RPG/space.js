@@ -7,9 +7,9 @@ const axios = require("axios"); // Importe a biblioteca axios
 
 module.exports = {
   data: new SlashCommandBuilder()
-    .setName("conanteste")
+    .setName("space4")
     .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
-    .setDescription("conan npc")
+    .setDescription("space npc")
     .addStringOption((o) =>
       o
         .setName("query")
@@ -24,7 +24,7 @@ module.exports = {
     // Faça uma solicitação à sua API para obter os dados
     try {
       const response = await axios.get(
-        "http://campanhasdoboi.com.br:25000/api/data"
+        "https://campanhasdoboi.com.br:25000/api/data/space.json"
       ); // Substitua "URL_DA_SUA_API" pela URL da sua API
       const npcData = response.data;
 
@@ -48,11 +48,10 @@ module.exports = {
     // Faça uma solicitação à sua API para obter os dados
     try {
       const response = await axios.get(
-        "http://campanhasdoboi.com.br:25000/api/data"
+        "https://campanhasdoboi.com.br:25000/api/data/space.json"
       ); // Substitua "URL_DA_SUA_API" pela URL da sua API
       const npcData = response.data;
 
-      // Encontre o NPC correspondente nos dados da API
       const npc = npcData.find(
         (npc) => npc.name.toLowerCase() === query.toLowerCase()
       );
@@ -61,28 +60,21 @@ module.exports = {
         await interaction.reply("NPC não encontrado.");
         return;
       }
-
-      // Exiba as informações da vantagem
-      if (npc.country === "Ciméria") {
-        local = "Tribo";
-        clan = "Clã";
-      } else {
-        local = "Província";
-        clan = "\u200B";
-      }
-      // Exiba as informações do NPC
       const embed = new EmbedBuilder();
+
+      embed.addFields(
+        { name: "Cargo", value: `${npc.cargo}` },
+        { name: "Planeta", value: `${npc.planet}`, inline: true },
+        { name: "Quadrante", value: `${npc.quadrante}`, inline: true },
+        { name: "Raça", value: `${npc.race}`, inline: true }
+      );
+
       embed
         .setColor(0x5506ce)
         .setImage(npc.image)
         .setTitle(npc.name)
-        .setDescription(npc.description)
-        .addFields(
-          { name: "Título", value: `${npc.title}` },
-          { name: "País", value: `${npc.country}`, inline: true },
-          { name: `${local}`, value: `${npc.tribe}`, inline: true },
-          { name: `${clan}`, value: `${npc.clan}`, inline: true }
-        );
+        .setDescription(npc.description);
+
       await interaction.reply({ embeds: [embed] });
     } catch (error) {
       console.error("Erro ao buscar dados da API:", error);

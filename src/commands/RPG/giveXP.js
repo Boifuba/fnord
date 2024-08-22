@@ -1,5 +1,5 @@
 const { SlashCommandBuilder, PermissionFlagsBits } = require("discord.js");
-const profileModel = require("../../schema/profileSchema");
+const profileModel = require("../../schema/xp");
 const wait = require("node:timers/promises").setTimeout;
 
 module.exports = {
@@ -73,6 +73,7 @@ module.exports = {
             .setMinValue(1)
         )
     ),
+
   async execute(interaction) {
     await interaction.deferReply();
     const adminSubcommand = interaction.options.getSubcommand();
@@ -92,6 +93,7 @@ module.exports = {
           userId: user.id,
           balance: 0,
           campanha: campaign,
+          user: user.displayName, // Corrigido aqui
         });
       }
 
@@ -126,6 +128,7 @@ module.exports = {
               userId: member.user.id,
               balance: 0,
               campanha: campaign,
+              user: member.user.displayName, // Corrigido aqui
             });
           }
 
@@ -139,7 +142,6 @@ module.exports = {
         }
       });
 
-   
       await interaction.editReply(
         `🔥 Todos os jogadores de ${campaign} receberam xp!`
       );
@@ -162,6 +164,7 @@ module.exports = {
           userId: user.id,
           balance: 0,
           campanha: campaign,
+          user: user.name, // Corrigido aqui
         });
       }
 

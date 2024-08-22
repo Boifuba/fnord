@@ -2,18 +2,18 @@ const { SlashCommandBuilder } = require("discord.js");
 
 module.exports = {
   data: new SlashCommandBuilder()
-    .setName("limpar")
-    .setDescription("Limpa mensagens do chat.")
+    .setName("clear")
+    .setDescription("Clear chat messages.")
     .addIntegerOption((option) =>
       option
-        .setName("quantidade")
-        .setDescription("Quantidade de mensagens a serem apagadas.")
+        .setName("qty")
+        .setDescription("Insert how many messages you want to delete.")
         .setRequired(true)
     ),
 
   async execute(interaction) {
     try {
-      const quantidade = interaction.options.getInteger("quantidade");
+      const quantidade = interaction.options.getInteger("qty");
       const channel = interaction.channel;
 
       // Deferir a resposta inicial para evitar erros de timeout
@@ -32,12 +32,12 @@ module.exports = {
       await channel.bulkDelete(mensagensParaExcluir);
 
       await interaction.editReply(
-        `${mensagensParaExcluir.size} mensagens foram apagadas por ${interaction.user}.`
+        `${mensagensParaExcluir.size} mmessages was deleted by ${interaction.user}.`
       );
     } catch (error) {
       console.error(error);
       await interaction.followUp({
-        content: "Houve um erro ao executar este comando!",
+        content: "Something went wrong!",
         ephemeral: true,
       });
     }

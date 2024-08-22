@@ -1,14 +1,15 @@
 {
   "dependencies": {
     "@discordjs/voice": "^0.16.0",
-    "axios": "^1.5.0",
+    "axios": "^1.6.2",
     "cowsay": "^1.5.0",
     "discord-rpc": "^4.0.1",
     "discord.js": "^14.13.0",
     "dotenv": "^16.3.1",
     "ffmpeg-static": "^5.2.0",
     "mathjs": "^11.11.0",
-    "mongoose": "^7.5.3",
+    "mongoose": "^7.6.3",
+    "update": "^0.7.4",
     "weather-js": "^2.0.0",
     "wikijs": "^6.4.1"
   },

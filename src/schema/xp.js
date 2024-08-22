@@ -4,9 +4,9 @@ const profileSchema = new mongoose.Schema({
   serverId: { type: String, require: true },
   balance: { type: Number, default: 1 },
   campanha: { type: String, require: true },
-  pontos: { type: Number, default: 1 },
+  user: { type: String, require: true },
 });
 
-const model = mongoose.model("beahdb", profileSchema);
+const model = mongoose.model("xp", profileSchema, "xp");
 
 module.exports = model;

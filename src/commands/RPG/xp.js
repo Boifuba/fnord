@@ -1,10 +1,8 @@
 const { SlashCommandBuilder } = require("discord.js");
 const { EmbedBuilder } = require("@discordjs/builders");
-const profileModel = require("../../schema/profileSchema");
+const profileModel = require("../../schema/xp");
 const date = new Date();
 const timeString = date.toLocaleString();
-
-
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -26,8 +24,10 @@ module.exports = {
       .setTitle("Tabela de XP")
       .setColor(0x5506ce)
       .setThumbnail("https://i.imgur.com/902zrCA.png")
-      .setFooter({ text: `Xp distribuída em: ${timeString}`, iconURL: "https://i.imgur.com/s1AVkCg.png"})
-
+      .setFooter({
+        text: `Xp distribuída em: ${timeString}`,
+        iconURL: "https://i.imgur.com/s1AVkCg.png",
+      });
 
     let campaignRole = interaction.options.getRole("campaign");
     let members = [];
