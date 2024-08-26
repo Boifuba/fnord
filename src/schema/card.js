@@ -9,6 +9,10 @@ const cardsSchema = new Schema({
     type: Number,
     required: true,
   },
+  totalCards: {
+    type: Number,
+    required: true,
+  },
   lastRoleAdded: {
     type: Date, // Campo para armazenar a data da última vez que o cargo foi adicionado
   },

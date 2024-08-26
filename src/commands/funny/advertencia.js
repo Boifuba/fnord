@@ -16,6 +16,12 @@ module.exports = {
             .setDescription("O usuário que receberá a advertência")
             .setRequired(true)
         )
+        .addStringOption((option) =>
+          option
+            .setName("motivo")
+            .setDescription("O motivo da advertência")
+            .setRequired(false)
+        )
     )
     .addSubcommand((subcommand) =>
       subcommand
@@ -48,6 +54,8 @@ async function handleAddCard(interaction) {
 
     const user = interaction.options.getUser("user");
     const issuer = interaction.user;
+    const motivo =
+      interaction.options.getString("motivo") || "Nenhum motivo especificado";
 
     let userData = await Cards.findOne({ user: user.id });
 
@@ -55,14 +63,16 @@ async function handleAddCard(interaction) {
       userData = new Cards({
         user: user.id,
         cards: 0,
+        totalCards: 0,
       });
     }
 
     userData.cards += 1;
+    userData.totalCards += 1; // Incrementa totalCards também
     await userData.save();
 
     await interaction.editReply({
-      content: `🔴 Você advertiu ${user.username}. Eles agora têm ${userData.cards} advertências.`,
+      content: `🔴 Você advertiu ${user.displayName}. Eles agora têm ${userData.cards} advertências.`,
       ephemeral: true,
     });
 
@@ -70,8 +80,9 @@ async function handleAddCard(interaction) {
       .setColor("#ff0000")
       .setTitle("Você recebeu uma advertência!")
       .setDescription(
-        `⚠️ Olá ${user}, você recebeu uma advertência de ${issuer.username}. Agora você tem ${userData.cards} advertências.`
+        `⚠️ Olá ${user}, você recebeu uma advertência de ${issuer.displayName}. Agora você tem ${userData.cards} advertências.`
       )
+      .addFields({ name: "Motivo:", value: motivo })
       .setImage("https://i.imgur.com/fdinBeP.png")
       .setTimestamp();
 
@@ -83,7 +94,12 @@ async function handleAddCard(interaction) {
     // Verifique se o usuário atingiu 10 cards e adicione o cargo
     const member = interaction.guild.members.cache.get(user.id);
     const roleId = "1275620987257229322"; // Substitua com o ID do cargo que deseja adicionar
-    await checkAndAddRole(member, roleId);
+    const roleAdded = await checkAndAddRole(member, roleId);
+
+    if (roleAdded) {
+      userData.lastRoleAdded = new Date(); // Armazena a data de adição do cargo
+      await userData.save();
+    }
   } catch (error) {
     console.error(error);
     if (interaction.deferred || interaction.replied) {
@@ -105,9 +121,14 @@ async function handleCheckCards(interaction) {
     const userData = await Cards.findOne({ user: user.id });
 
     const cardCount = userData ? userData.cards : 0;
+    const totalCardCount = userData ? userData.totalCards : 0;
+    const lastRoleDate =
+      userData && userData.lastRoleAdded
+        ? userData.lastRoleAdded.toDateString()
+        : "Nenhum cargo adicionado";
 
     await interaction.reply({
-      content: `🔴 ${user.username} tem ${cardCount} advertências.`,
+      content: `🔴 ${user.displayName} tem ${cardCount} advertências.\n📅 Total de advertências registradas: ${totalCardCount}.\n🗓 Data da última punição: ${lastRoleDate}.`,
       ephemeral: true,
     });
   } catch (error) {
