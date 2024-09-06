@@ -40,7 +40,6 @@ async function checkAndAddCard(member, roleId) {
         console.log(`${member.user.tag} já tem o cargo.`);
       }
     } else {
-      console.log(`${member.user.tag} não tem 10 cards.`);
     }
   } catch (error) {
     console.error("Erro ao verificar e adicionar cargo:", error);
