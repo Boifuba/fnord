@@ -1,6 +1,6 @@
 const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
 const Cards = require("../../schema/card");
-const checkAndAddRole = require("../../functions/checkRoleCards"); // Importe a função checkAndAddRole
+const checkAndAddRole = require("../../functions/checkRoleCards");
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -21,6 +21,32 @@ module.exports = {
             .setName("motivo")
             .setDescription("O motivo da advertência")
             .setRequired(true)
+            .addChoices(
+              { name: "Art. 1º - Homofobia", value: "Homofobia" },
+              { name: "Art. 2º - Fofoca incompleta", value: "Fofoca." },
+              { name: "Art. 3º - Pesquisa e Citação ", value: "Pesquisa" },
+              { name: "Art. 4º - Militância", value: "Militância" },
+              {
+                name: "Art. 5º - Foto de Anime ou Furry",
+                value: "Foto de Anime",
+              },
+              {
+                name: "Art. 6º - Falar mal do Menino Ney",
+                value: "Neymar",
+              },
+              {
+                name: "Art. 7º - Inventar Palabras",
+                value: "Inventar Palavras",
+              },
+              {
+                name: "MP Nº001 - Falar da Taylor Swift",
+                value: "Taylor Swift",
+              },
+              {
+                name: "MP Nº002 - Falar de Pau",
+                value: "Falar de Pau",
+              }
+            )
         )
     )
     .addSubcommand((subcommand) =>
@@ -90,7 +116,7 @@ async function handleAddCard(interaction) {
     }
 
     userData.cards += 1;
-    userData.totalCards += 1; // Incrementa totalCards também
+    userData.totalCards += 1;
     await userData.save();
 
     await interaction.editReply({
@@ -100,16 +126,16 @@ async function handleAddCard(interaction) {
 
     const embed = new EmbedBuilder()
       .setColor("#ff0000")
-      .setTitle("Você recebeu uma advertência!")
+      .setTitle(`Você recebeu um cartão!`)
       .setDescription(
-        `⚠️ Olá ${user}, você recebeu uma advertência de ${issuer.username}. Agora você tem ${userData.cards} advertências.`
+        `⚠️ Olá ${user}, você recebeu uma advertência de ${issuer.displayName}. Agora você tem ${userData.totalCards} advertências.`
       )
       .addFields({ name: "Motivo:", value: motivo })
       .setImage("https://i.imgur.com/fdinBeP.png")
       .setTimestamp();
 
     await interaction.followUp({
-      content: `${user}`, // Menciona o usuário
+      content: `${user}`,
       embeds: [embed],
     });
 
@@ -150,7 +176,7 @@ async function handleCheckCards(interaction) {
         : "Nenhum cargo adicionado";
 
     await interaction.reply({
-      content: `🔴 ${user.username} tem ${cardCount} advertências.\n📅 Total de advertências registradas: ${totalCardCount}.\n🗓 Data da última punição: ${lastRoleDate}.`,
+      content: `🔴 ${user.displayName} tem ${cardCount} advertências.\n📅 Total de advertências registradas: ${totalCardCount}.\n🗓 Data da última punição: ${lastRoleDate}.`,
       ephemeral: true,
     });
   } catch (error) {

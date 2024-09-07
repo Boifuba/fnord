@@ -40,9 +40,9 @@ async function checkAndRemoveRoles(client, roleId) {
 
         // Calcula a diferença em horas
         const diffInMs = currentDate - recordedDate;
-        console.log(
-          `Data registrada: ${recordedDate}, Data atual: ${currentDate}`
-        );
+        // console.log(
+        //   `Data registrada: ${recordedDate}, Data atual: ${currentDate}`
+        // );
         const diffInHours = diffInMs / (1000 * 60 * 60);
 
         // Verifica se a data registrada é mais de 24 horas atrás e se o membro tem o cargo

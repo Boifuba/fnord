@@ -1,12 +1,12 @@
 const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
-const fs = require('fs');
+const fs = require("fs");
 
 // Carregue o JSON e armazene-o em uma variável global
 let jsonData = null;
 
-fs.readFile('Osberht_of_Northumbria_rev.gcs', 'utf8', (err, data) => {
+fs.readFile("Osberht_of_Northumbria_rev.gcs", "utf8", (err, data) => {
   if (err) {
-    console.error('Erro ao ler o arquivo JSON:', err);
+    console.error("Erro ao ler o arquivo JSON:", err);
   } else {
     jsonData = JSON.parse(data);
   }
@@ -15,7 +15,7 @@ fs.readFile('Osberht_of_Northumbria_rev.gcs', 'utf8', (err, data) => {
 // Função para buscar as habilidades do JSON
 function getSkills() {
   if (jsonData && jsonData.skills) {
-    return jsonData.skills.map(element => element.name);
+    return jsonData.skills.map((element) => element.name);
   }
   return [];
 }
@@ -23,7 +23,7 @@ function getSkills() {
 // Função para obter o NH da habilidade
 function getNHForSkill(skillName) {
   if (jsonData && jsonData.skills) {
-    const skill = jsonData.skills.find(element => element.name === skillName);
+    const skill = jsonData.skills.find((element) => element.name === skillName);
     if (skill) {
       return skill.calc.level;
     }
@@ -35,16 +35,16 @@ module.exports = {
   data: new SlashCommandBuilder()
     .setName("boi")
     .setDescription("Rola contra uma habilidade")
-    .addSubcommand(subcommand =>
+    .addSubcommand((subcommand) =>
       subcommand
         .setName("skill")
         .setDescription("Rola contra uma habilidade")
-        .addStringOption(option =>
+        .addStringOption((option) =>
           option
             .setName("skill_name")
             .setDescription("Selecione uma habilidade")
             .setRequired(true)
-            .addChoices(getSkills().map(skillName => [skillName, skillName]))
+            .addChoices(getSkills().map((skillName) => [skillName, skillName]))
         )
     ),
 
@@ -89,7 +89,7 @@ module.exports = {
       } else if (roll === 18) {
         embed
           .setColor("Black")
-          .setThumbnail("https://i.imgur.com/PWWFewM.png")
+          .setImage("https://i.imgur.com/PWWFewM.png")
           .setTitle("Crítico")
           .addFields({
             name: `Resultado:`,
