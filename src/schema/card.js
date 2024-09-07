@@ -14,7 +14,7 @@ const cardsSchema = new Schema({
     required: true,
   },
   lastRoleAdded: {
-    type: Date, // Campo para armazenar a data da última vez que o cargo foi adicionado
+    type: Date,
   },
 });
 

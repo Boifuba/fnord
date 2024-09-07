@@ -14,7 +14,7 @@
     "wikijs": "^6.4.1"
   },
   "devDependencies": {
-    "eslint": "^8.48.0"
+    "eslint": "^8.57.0"
   },
   "name": "fnord",
   "version": "0.1.1",

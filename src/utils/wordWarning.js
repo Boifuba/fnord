@@ -1,5 +1,3 @@
-const fs = require("fs");
-
 // Defina seu array de palavras proibidas aqui
 
 async function wordWarning(message) {
@@ -8,14 +6,13 @@ async function wordWarning(message) {
   const content = message.content.toLowerCase();
 
   if (content.includes("transhuman")) await message.react("👽");
-  if (content.includes("illuminati")) await message.react(`🔺`);
   if (content.includes("d&d")) await message.react(`💩`);
   if (content.includes("taylor Swift")) await message.react(`💩`);
-  if (content.includes("taylor")) await message.react(`💩`);
-  if (content.includes("swift")) await message.react(`💩`);
-  if (content.includes("savage word")) await message.react(`💩`);
   if (content.includes("D20")) await message.react(`💩`);
   if (content.includes("negão")) await message.react("🍆");
+  if (content.includes("soberana")) await message.react("🍆");
+  if (content.includes("Monark")) await message.react("⛔");
+  if (content.includes("bot")) await message.react("🍌");
 
   // await message.react("⛔");
   // await message.react("🍌");
@@ -24,7 +21,7 @@ async function wordWarning(message) {
   // await message.react("🐣");
   // await message.react("👉");
   // await message.react("👌");
-  //await message.react("💩");
+  // await message.react("💩");
 
   return;
 }

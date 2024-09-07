@@ -12,14 +12,14 @@ module.exports = {
 
     const guild = interaction.guild; // Obter a guild da interação
 
-    let a = guild.memberCount;
-    let b = guild.members.cache.filter(
+    const a = guild.memberCount;
+    const b = guild.members.cache.filter(
       (x) => x.presence?.status === "online"
     ).size;
-    let c = guild.members.cache.filter(
+    const c = guild.members.cache.filter(
       (x) => x.presence?.status === "idle"
     ).size;
-    let d = guild.members.cache.filter(
+    const d = guild.members.cache.filter(
       (x) => x.presence?.status === "dnd"
     ).size;
 

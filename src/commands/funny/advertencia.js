@@ -120,7 +120,7 @@ async function handleAddCard(interaction) {
     await userData.save();
 
     await interaction.editReply({
-      content: `🔴 Você advertiu ${user.username}. Eles agora têm ${userData.cards} advertências.`,
+      content: `🔴 Você advertiu ${user.displayName}. Eles agora têm ${userData.cards} advertências.`,
       ephemeral: true,
     });
 
@@ -128,7 +128,7 @@ async function handleAddCard(interaction) {
       .setColor("#ff0000")
       .setTitle(`Você recebeu um cartão!`)
       .setDescription(
-        `⚠️ Olá ${user}, você recebeu uma advertência de ${issuer.displayName}. Agora você tem ${userData.totalCards} advertências.`
+        `⚠️ Olá ${user}, você recebeu uma advertência de ${issuer.displayName}. Agora você tem ${userData.cards} advertências, no total de ${userData.totalCards}`
       )
       .addFields({ name: "Motivo:", value: motivo })
       .setImage("https://i.imgur.com/fdinBeP.png")
@@ -205,7 +205,7 @@ async function handleListCards(interaction) {
             const user = interaction.guild.members.cache.get(userData.user);
             return `**${
               user ? user.displayName : "Usuário não encontrado"
-            }**: ${userData.cards} advertências`;
+            }**: ${userData.totalCards} advertências`;
           })
           .join("\n")
       )

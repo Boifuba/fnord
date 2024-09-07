@@ -46,19 +46,18 @@ module.exports = {
       filtered.map((choice) => ({ name: choice, value: choice }))
     );
   },
-  /////
   async execute(interaction) {
     const query = interaction.options.getString("query");
     const channel = interaction.member.voice.channel;
-  
+
     if (!channel) {
       return interaction.followUp(
         "Você precisa estar em um canal de voz para usar este comando."
       );
     }
-  
+
     let connection = getVoiceConnection(channel.guild.id);
-  
+
     if (!connection) {
       connection = await joinVoiceChannel({
         channelId: channel.id,
@@ -66,23 +65,23 @@ module.exports = {
         adapterCreator: channel.guild.voiceAdapterCreator,
       });
     }
-  
+
     const player = createAudioPlayer({
       behaviors: {
         noSubscriber: NoSubscriberBehavior.Pause,
       },
     });
-  
+
     const audioFilePath = path.join(__dirname, `../../sounds/${query}.mp3`);
-  
+
     const resource = createAudioResource(audioFilePath);
     connection.subscribe(player);
     player.play(resource);
-  
+
     player.on("error", (error) => {
       console.error("Erro no player:", error);
     });
-  
+
     player.on("stateChange", (oldState, newState) => {
       if (newState.status === "idle") {
         if (connection) {
@@ -90,11 +89,10 @@ module.exports = {
         }
       }
     });
-  
+
     // Envie uma resposta inicial aqui
     await interaction.reply({ content: `*${query}*`, ephemeral: true });
-  }
-  
+  },
 };
 
 //save version
