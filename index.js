@@ -1,6 +1,8 @@
 const mongoose = require("mongoose");
 const wordWarning = require("./src/utils/wordWarning");
 const checkAndUpdateRoles = require("./src/events/giveRolebyLvl");
+const EventScheduler = require("./src/events/eventSchedulers"); // Importe o módulo de eventos
+
 const eventHandler = require("./src/handlers/eventHandlers");
 const cowsay = require("cowsay");
 const xpToGive = require("./src/events/giveUserXp");
@@ -23,6 +25,7 @@ const client = new Client({
     GatewayIntentBits.GuildVoiceStates,
     GatewayIntentBits.GuildMessageReactions,
   ],
+  partials: ["MESSAGE", "CHANNEL", "REACTION"],
 });
 
 client.commands = new Collection();
@@ -144,3 +147,86 @@ client.on("messageCreate", async (message) => {
 // client.once("ready", () => {
 //   console.log(`Bot logado como ${client.user.tag}`);
 // });
+
+// Inicializa o gerenciador de eventos
+const eventScheduler = new EventScheduler(client);
+
+client.once("ready", () => {
+  // Inicia o agendamento dos eventos
+  eventScheduler.initEvents();
+});
+
+///
+/////
+///////
+
+////////
+//////////
+client.on("messageReactionAdd", async (reaction, user) => {
+  if (user.bot) return; // Ignora reações de bots
+
+  console.log(
+    `Reação adicionada: ${reaction.emoji.name} na mensagem ${reaction.message.id} por ${user.tag}`
+  );
+
+  const messageId = "1282826286229753897"; // Substitua pelo ID da mensagem
+  const roleId = "1278136388767973470"; // Substitua pelo ID do cargo
+
+  if (reaction.message.id === messageId) {
+    const guild = reaction.message.guild;
+    if (guild) {
+      try {
+        const member = await guild.members.fetch(user.id);
+        if (member && !member.roles.cache.has(roleId)) {
+          await member.roles.add(roleId);
+          console.log(`Cargo adicionado a ${user.tag}`);
+        }
+      } catch (error) {
+        console.error("Erro ao adicionar o cargo:", error);
+      }
+    } else {
+      console.error("Guild não encontrada para a mensagem.");
+    }
+  }
+});
+
+client.on("messageReactionRemove", async (reaction, user) => {
+  if (user.bot) return; // Ignora reações de bots
+
+  console.log(
+    `Reação removida: ${reaction.emoji.name} na mensagem ${reaction.message.id} por ${user.tag}`
+  );
+
+  const messageId = "1282826286229753897"; // Substitua pelo ID da mensagem
+  const roleId = "1278136388767973470"; // Substitua pelo ID do cargo
+
+  if (reaction.message.id === messageId) {
+    const guild = reaction.message.guild;
+    if (guild) {
+      try {
+        const member = await guild.members.fetch(user.id);
+        if (member && member.roles.cache.has(roleId)) {
+          await member.roles.remove(roleId);
+          console.log(`Cargo removido de ${user.tag}`);
+        }
+      } catch (error) {
+        console.error("Erro ao remover o cargo:", error);
+      }
+    } else {
+      console.error("Guild não encontrada para a mensagem.");
+    }
+  }
+});
+
+//ADICIONAR O EMOJI PARA TER A PORRA DO CARALHO
+client.once("ready", async () => {
+  try {
+    const channel = await client.channels.fetch("1140345961634353235"); // Substitua pelo ID do canal
+    const message = await channel.messages.fetch("1282826286229753897"); // Substitua pelo ID da mensagem
+
+    await message.react("👍"); // Substitua pelo emoji desejado
+    console.log("Emoji adicionado à mensagem.");
+  } catch (error) {
+    console.error("Erro ao adicionar a reação:", error);
+  }
+});

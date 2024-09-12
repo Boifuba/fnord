@@ -37,7 +37,7 @@ async function checkAndAddCard(member, roleId) {
           `Cards zerados e data registrada para o usuário ${member.user.tag}`
         );
       } else {
-        console.log(`${member.user.tag} já tem o cargo.`);
+        console.log(`${member.user.displayName} já tem o cargo.`);
       }
     } else {
     }

@@ -39,12 +39,12 @@ module.exports = {
                 value: "Inventar Palavras",
               },
               {
-                name: "MP Nº001 - Falar da Taylor Swift",
-                value: "Taylor Swift",
+                name: "Art. 8º - Contestar Cartão",
+                value: "Contestar Cartão",
               },
               {
-                name: "MP Nº002 - Falar de Pau",
-                value: "Falar de Pau",
+                name: "MP Nº001 - Falar da Taylor Swift",
+                value: "Taylor Swift",
               }
             )
         )
