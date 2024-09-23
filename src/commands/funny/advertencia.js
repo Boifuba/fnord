@@ -1,6 +1,7 @@
 const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
 const Cards = require("../../schema/card");
 const checkAndAddRole = require("../../functions/checkRoleCards");
+const Anarquia = require("../../schema/anarquia"); // Importa o modelo de anarquia
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -48,37 +49,6 @@ module.exports = {
               }
             )
         )
-    )
-    .addSubcommand((subcommand) =>
-      subcommand
-        .setName("check")
-        .setDescription("Verifica a quantidade de advertências de um usuário.")
-        .addUserOption((option) =>
-          option
-            .setName("user")
-            .setDescription(
-              "O usuário cuja quantidade de advertências será verificada"
-            )
-            .setRequired(true)
-        )
-    )
-    .addSubcommand((subcommand) =>
-      subcommand
-        .setName("list")
-        .setDescription(
-          "Lista todos os usuários com advertências, ordenados pelo número de advertências."
-        )
-    )
-    .addSubcommand((subcommand) =>
-      subcommand
-        .setName("remove")
-        .setDescription("Remove uma advertência de um usuário.")
-        .addUserOption((option) =>
-          option
-            .setName("user")
-            .setDescription("O usuário do qual a advertência será removida")
-            .setRequired(true)
-        )
     ),
 
   async execute(interaction) {
@@ -86,24 +56,33 @@ module.exports = {
 
     if (subcommand === "add") {
       await handleAddCard(interaction);
-    } else if (subcommand === "check") {
-      await handleCheckCards(interaction);
-    } else if (subcommand === "list") {
-      await handleListCards(interaction);
-    } else if (subcommand === "remove") {
-      await handleRemoveCard(interaction);
     }
   },
 };
 
 async function handleAddCard(interaction) {
   try {
-    await interaction.deferReply({ ephemeral: true });
+    await interaction.deferReply({ ephemeral: false });
 
     const user = interaction.options.getUser("user");
     const issuer = interaction.user;
     const motivo =
       interaction.options.getString("motivo") || "Nenhum motivo especificado";
+
+    // Consulta o estado da anarquia
+    const anarquia = await Anarquia.findOne();
+    if (anarquia && anarquia.estado) {
+      const embed = new EmbedBuilder()
+        .setColor("#FF0000")
+        .setImage("https://i.imgur.com/fFlIVkp.jpeg")
+        .setTitle("🔒 Anarquia Ativada")
+        .setDescription(
+          "Elon Musk garante que enquanto a anarquia estiver ativada, não é possível adicionar cartões."
+        );
+
+      await interaction.editReply({ embeds: [embed] });
+      return;
+    }
 
     let userData = await Cards.findOne({ user: user.id });
 
@@ -112,11 +91,13 @@ async function handleAddCard(interaction) {
         user: user.id,
         cards: 0,
         totalCards: 0,
+        reasons: [], // Inicializa o array de motivos
       });
     }
 
     userData.cards += 1;
     userData.totalCards += 1;
+    userData.reasons.push({ reason: motivo }); // Adiciona o motivo ao array
     await userData.save();
 
     await interaction.editReply({
@@ -158,99 +139,6 @@ async function handleAddCard(interaction) {
       await interaction.reply(
         "❌ Ocorreu um erro ao adicionar as advertências."
       );
-    }
-  }
-}
-
-async function handleCheckCards(interaction) {
-  try {
-    const user = interaction.options.getUser("user");
-
-    const userData = await Cards.findOne({ user: user.id });
-
-    const cardCount = userData ? userData.cards : 0;
-    const totalCardCount = userData ? userData.totalCards : 0;
-    const lastRoleDate =
-      userData && userData.lastRoleAdded
-        ? userData.lastRoleAdded.toDateString()
-        : "Nenhum cargo adicionado";
-
-    await interaction.reply({
-      content: `🔴 ${user.displayName} tem ${cardCount} advertências.\n📅 Total de advertências registradas: ${totalCardCount}.\n🗓 Data da última punição: ${lastRoleDate}.`,
-      ephemeral: true,
-    });
-  } catch (error) {
-    console.error(error);
-    await interaction.reply("❌ Ocorreu um erro ao verificar as advertências.");
-  }
-}
-
-async function handleListCards(interaction) {
-  try {
-    const allUsers = await Cards.find().sort({ cards: -1 });
-
-    if (allUsers.length === 0) {
-      return await interaction.reply({
-        content: "🔍 Não há usuários com advertências registradas.",
-        ephemeral: true,
-      });
-    }
-
-    const embed = new EmbedBuilder()
-      .setColor("#0099ff")
-      .setTitle("Lista de Usuários com Advertências")
-      .setDescription(
-        allUsers
-          .map((userData) => {
-            const user = interaction.guild.members.cache.get(userData.user);
-            return `**${
-              user ? user.displayName : "Usuário não encontrado"
-            }**: ${userData.totalCards} advertências`;
-          })
-          .join("\n")
-      )
-      .setTimestamp();
-
-    await interaction.reply({ embeds: [embed], ephemeral: true });
-  } catch (error) {
-    console.error(error);
-    await interaction.reply(
-      "❌ Ocorreu um erro ao listar os usuários com advertências."
-    );
-  }
-}
-
-// Função para remover uma advertência
-async function handleRemoveCard(interaction) {
-  try {
-    await interaction.deferReply({ ephemeral: true });
-
-    const user = interaction.options.getUser("user");
-    const userData = await Cards.findOne({ user: user.id });
-
-    if (!userData || userData.cards === 0) {
-      await interaction.editReply({
-        content: `🔍 O usuário ${user.username} não tem advertências para remover.`,
-        ephemeral: true,
-      });
-      return;
-    }
-
-    userData.cards -= 1; // Diminui o número de advertências
-    await userData.save();
-
-    await interaction.editReply({
-      content: `🟢 Advertência removida com sucesso. ${user.username} agora tem ${userData.cards} advertências.`,
-      ephemeral: true,
-    });
-  } catch (error) {
-    console.error(error);
-    if (interaction.deferred || interaction.replied) {
-      await interaction.editReply(
-        "❌ Ocorreu um erro ao remover a advertência."
-      );
-    } else {
-      await interaction.reply("❌ Ocorreu um erro ao remover a advertência.");
     }
   }
 }

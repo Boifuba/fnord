@@ -4,77 +4,125 @@ const ContadorDePau = require("../../schema/pauCount"); // Caminho para o seu mo
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("pau")
-    .setDescription("Informa quanto tempo estamos sem falar de paus "),
+    .setDescription("Comandos relacionados ao contador de 'falar de paus'")
+    .addSubcommand((subcommand) =>
+      subcommand
+        .setName("registrar")
+        .setDescription("Registra a data atual e reseta o contador.")
+    )
+    .addSubcommand((subcommand) =>
+      subcommand
+        .setName("mostrar")
+        .setDescription("Mostra o tempo atual e o recorde sem falar de pau.")
+    ),
 
   async execute(interaction) {
-    try {
-      const agora = new Date();
-      // Busca o registro mais recente
-      let registro = await ContadorDePau.findOne()
-        .sort({ lastAccident: -1 })
-        .exec();
+    const agora = new Date();
 
-      let descricao;
-      const embed = new EmbedBuilder()
-        .setTitle("Amamos falar de paus mas...")
-        .setThumbnail("https://i.imgur.com/9LfpQF6.png"); // Substitua 'URL_DA_IMAGEM' pela URL que deseja usar
+    if (interaction.options.getSubcommand() === "registrar") {
+      try {
+        let registro = await ContadorDePau.findOne()
+          .sort({ lastAccident: -1 })
+          .exec();
 
-      if (!registro) {
-        // Se não houver registros, cria um novo com a data atual
-        console.log("Nenhum registro encontrado. Criando um novo...");
-        registro = new ContadorDePau({
-          user: interaction.user.id,
-          lastAccident: agora,
-        });
-        await registro.save();
-
-        descricao =
-          "Este é o primeiro pau registrado. O contador foi iniciado.";
-        embed.setColor(0x00ff00); // Cor verde para indicar sucesso
-      } else {
-        // Verifica se lastAccident é válido
-        const ultimoAcidente = new Date(registro.lastAccident);
-
-        if (isNaN(ultimoAcidente.getTime())) {
-          // Se a data for inválida
-          console.log("Data inválida encontrada. Resetando contador...");
-          descricao = "Data inválida detectada. Resetando contador.";
-          embed.setColor(0xff0000); // Cor vermelha para indicar erro
+        if (!registro) {
+          // Cria um novo registro se não houver nenhum
+          registro = new ContadorDePau({
+            user: interaction.user.id,
+            lastAccident: agora,
+            recordeSemAcidente: 0,
+          });
         } else {
-          // Calcula a diferença em milissegundos
+          // Calcula o tempo desde o último acidente
+          const ultimoAcidente = new Date(registro.lastAccident);
           const diferencaMs = agora - ultimoAcidente;
-          const diferencaHoras = Math.floor(diferencaMs / (1000 * 60 * 60));
-          const diferencaMinutos = Math.floor(
-            (diferencaMs % (1000 * 60 * 60)) / (1000 * 60)
-          );
 
-          descricao = `Estamos a ${diferencaHoras} horas e ${diferencaMinutos} minutos sem falar de pau. O contador foi resetado.`;
-          embed.setColor(0xff0000); // Cor vermelha para indicar alerta ou reinício
+          // Atualiza o recorde se o tempo atual for maior que o anterior
+          if (diferencaMs > registro.recordeSemAcidente) {
+            registro.recordeSemAcidente = diferencaMs;
+          }
+
+          // Reseta o contador
+          registro.lastAccident = agora;
         }
 
-        // Atualiza o registro com a data atual para resetar o contador
-        console.log("Atualizando registro existente com nova data...");
-        registro.lastAccident = agora;
         await registro.save();
+
+        const embed = new EmbedBuilder()
+          .setTitle("Pau registrado!")
+          .setDescription(
+            "O contador foi resetado. Agora estamos em 0 horas e 0 minutos sem falar de pau."
+          )
+          .setColor(0xff0000)
+          .setThumbnail("https://i.imgur.com/9LfpQF6.png"); // Substitua pela URL desejada
+
+        await interaction.reply({ embeds: [embed] });
+      } catch (error) {
+        console.error("Erro ao registrar o incidente:", error);
+
+        const embedErro = new EmbedBuilder()
+          .setTitle("Erro")
+          .setDescription("Houve um erro ao tentar registrar o incidente.")
+          .setColor(0xff0000);
+
+        await interaction.reply({ embeds: [embedErro] });
       }
+    }
 
-      embed.setDescription(descricao);
-      await interaction.reply({ embeds: [embed] });
-    } catch (error) {
-      console.error(
-        "Erro ao calcular e resetar o tempo sem falar de paus:",
-        error
-      );
+    if (interaction.options.getSubcommand() === "mostrar") {
+      try {
+        const registro = await ContadorDePau.findOne()
+          .sort({ lastAccident: -1 })
+          .exec();
 
-      const embedErro = new EmbedBuilder()
-        .setTitle("Erro")
-        .setDescription(
-          "Houve um erro ao calcular e resetar o tempo sem acidentes."
-        )
-        .setColor(0xff0000) // Cor vermelha para indicar erro
-        .setThumbnail("https://i.imgur.com/9LfpQF6.png"); // Substitua 'URL_DA_IMAGEM' pela URL que deseja usar
+        if (!registro) {
+          // Se não houver registro
+          const embed = new EmbedBuilder()
+            .setTitle("Nenhum registro encontrado")
+            .setDescription(
+              "Ainda não temos nenhum incidente de falar de pau registrado."
+            )
+            .setColor(0xff0000);
 
-      await interaction.reply({ embeds: [embedErro] });
+          return interaction.reply({ embeds: [embed] });
+        }
+
+        const ultimoAcidente = new Date(registro.lastAccident);
+        const diferencaMs = agora - ultimoAcidente;
+        const diferencaHoras = Math.floor(diferencaMs / (1000 * 60 * 60));
+        const diferencaMinutos = Math.floor(
+          (diferencaMs % (1000 * 60 * 60)) / (1000 * 60)
+        );
+
+        const recordeHoras = Math.floor(
+          registro.recordeSemAcidente / (1000 * 60 * 60)
+        );
+        const recordeMinutos = Math.floor(
+          (registro.recordeSemAcidente % (1000 * 60 * 60)) / (1000 * 60)
+        );
+
+        const embed = new EmbedBuilder()
+          .setTitle("Tempo sem falar de pau")
+          .setDescription(
+            `Estamos a ${diferencaHoras} horas e ${diferencaMinutos} minutos sem falar de pau.\n` +
+              `Nosso recorde é de ${recordeHoras} horas e ${recordeMinutos} minutos.`
+          )
+          .setColor(0x00ff00)
+          .setThumbnail("https://i.imgur.com/9LfpQF6.png"); // Substitua pela URL desejada
+
+        await interaction.reply({ embeds: [embed] });
+      } catch (error) {
+        console.error("Erro ao mostrar o tempo sem falar de pau:", error);
+
+        const embedErro = new EmbedBuilder()
+          .setTitle("Erro")
+          .setDescription(
+            "Houve um erro ao tentar mostrar o tempo sem acidentes."
+          )
+          .setColor(0xff0000);
+
+        await interaction.reply({ embeds: [embedErro] });
+      }
     }
   },
 };

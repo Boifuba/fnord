@@ -1,7 +1,7 @@
 // Importações
 const { EmbedBuilder } = require("discord.js");
 const wait = require("node:timers/promises").setTimeout;
-const Level = require("../schema/Level");
+const Level = require("../../src/schema/Level");
 
 // Definição da matriz de cargos
 const cargos = [

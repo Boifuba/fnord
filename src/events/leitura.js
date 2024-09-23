@@ -1,5 +1,5 @@
 const { Events } = require("discord.js");
-const Mural = require("../schema/Message"); // Adicione a importação do modelo Mural
+const Mural = require("../../src/schema/Message"); // Adicione a importação do modelo Mural
 
 module.exports = {
   name: Events.InteractionCreate,

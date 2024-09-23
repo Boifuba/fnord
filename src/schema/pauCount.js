@@ -10,6 +10,10 @@ const pauSchema = new Schema({
     required: true,
     default: Date.now, // Define a data atual como padrão
   },
+  recordeSemAcidente: {
+    type: Number, // Será armazenado em milissegundos
+    default: 0, // Inicializa com 0
+  },
 });
 
 module.exports = model("ContadorDePau", pauSchema);

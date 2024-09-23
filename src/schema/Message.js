@@ -1,4 +1,4 @@
-const { Schema, model } = require("mongoose");
+const { Schema, model, models } = require("mongoose");
 
 const messageSchema = new Schema({
   userId: {
@@ -27,4 +27,5 @@ const messageSchema = new Schema({
   ],
 });
 
-module.exports = model("Mural", messageSchema);
+// Verifica se o modelo já existe antes de criá-lo
+module.exports = models.Mural || model("Mural", messageSchema);

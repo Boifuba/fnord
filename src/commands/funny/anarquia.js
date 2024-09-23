@@ -1,6 +1,5 @@
 const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
-
-let anarquiaAtiva = false; // Variável para armazenar o estado de "anarquia"
+const Anarquia = require("../../schema/anarquia"); // Ajuste o caminho conforme sua estrutura de arquivos
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -12,7 +11,7 @@ module.exports = {
         .setDescription("Escolha 'on' para ativar e 'off' para desativar.")
         .setRequired(true)
         .addChoices(
-          { name: "Ativar", value: "on" }, // Corrigido os nomes para serem mais legíveis
+          { name: "Ativar", value: "on" },
           { name: "Desativar", value: "off" }
         )
     ),
@@ -20,40 +19,44 @@ module.exports = {
   async execute(interaction) {
     const estado = interaction.options.getString("estado");
 
+    // Consulta o estado atual da anarquia na base de dados
+    let anarquia = await Anarquia.findOne();
+    if (!anarquia) {
+      // Se não houver um registro, cria um novo
+      anarquia = new Anarquia({ estado: false });
+      await anarquia.save();
+    }
+
     if (estado === "on") {
-      anarquiaAtiva = true;
-
-      // Embed para anarquia ativada
+      anarquia.estado = true;
       const embedOn = new EmbedBuilder()
-
         .setColor("#00FF00")
         .setTitle("🟢 Liberdade Expressão - Mode ON")
         .setImage("https://i.imgur.com/aYduPDh.jpeg")
-
         .setDescription(
           "O Monark garante que aqui tem liberdade de expressão e pode falar o quê pensa sem ser punido! - <@&830188485791973387>"
         );
 
       await interaction.reply({ embeds: [embedOn] });
     } else if (estado === "off") {
-      anarquiaAtiva = false;
-
-      // Embed para anarquia desativada
+      anarquia.estado = false;
       const embedOff = new EmbedBuilder()
         .setColor("#FF0000")
         .setTitle("🔴 Liberdade de expressão é o caralho!")
         .setImage("https://i.imgur.com/oJCM0ib.jpeg")
-
         .setDescription(
           "A democracia exige respeito às instituições e à vontade popular e a  liberdade de expressão não é liberdade de agressão. <@&830188485791973387>"
         );
 
       await interaction.reply({ embeds: [embedOff] });
     }
+
+    // Salva o novo estado no banco de dados
+    await anarquia.save();
   },
 
-  // Função para verificar o estado de "anarquia"
-  isAnarquiaAtiva() {
-    return anarquiaAtiva;
+  async isAnarquiaAtiva() {
+    const anarquia = await Anarquia.findOne();
+    return anarquia ? anarquia.estado : false;
   },
 };

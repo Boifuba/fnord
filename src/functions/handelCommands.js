@@ -21,7 +21,7 @@ module.exports = (client) => {
 
     const rest = new REST({
       version: "9",
-    }).setToken(process.env.token);
+    }).setToken(process.env.TOKEN);
 
     (async () => {
       try {
@@ -33,7 +33,7 @@ module.exports = (client) => {
           body: client.commandArray,
         });
 
-        console.log("✅ Successfully reloaded application commands.");
+        console.log("🔔 Comandos foram recarregados.");
       } catch (error) {
         console.error(error);
       }

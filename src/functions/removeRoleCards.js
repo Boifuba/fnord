@@ -49,14 +49,14 @@ async function checkAndRemoveRoles(client, roleId) {
         if (diffInHours > 24 && member.roles.cache.has(roleId)) {
           // Remove o cargo do membro
           await member.roles.remove(roleId);
-          console.log(`Cargo removido do usuário ${member.user.tag}`);
+          console.log(`Cargo removido do usuário ${member.displayName}`);
 
           // Opcional: Atualiza o registro no banco de dados, se necessário
           // Exemplo: userCard.lastRoleAdded = new Date(); // Atualiza a data
           // await userCard.save();
         }
       } else {
-        console.log(`Membro com ID ${userCard.user} não encontrado na guilda.`);
+        console.log(`Ninguém Online para ter o cargo Removido`);
       }
     }
   } catch (error) {

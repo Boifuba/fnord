@@ -16,6 +16,14 @@ const cardsSchema = new Schema({
   lastRoleAdded: {
     type: Date,
   },
+  reasons: [
+    {
+      reason: {
+        type: String,
+        required: true,
+      },
+    },
+  ], // Array para armazenar os motivos dos cartões
 });
 
 module.exports = model("Cards", cardsSchema);

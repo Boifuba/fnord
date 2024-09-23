@@ -1,19 +1,17 @@
 const mongoose = require("mongoose");
 const wordWarning = require("./src/utils/wordWarning");
 const checkAndUpdateRoles = require("./src/events/giveRolebyLvl");
-const EventScheduler = require("./src/events/eventSchedulers"); // Importe o módulo de eventos
-
+const EventScheduler = require("./src/events/eventSchedulers");
 const eventHandler = require("./src/handlers/eventHandlers");
 const cowsay = require("cowsay");
 const xpToGive = require("./src/events/giveUserXp");
 const checkAndRemoveRole = require("./src/functions/removeRoleCards");
-const {
-  Client,
-  GatewayIntentBits,
-  ActivityType,
-  Collection,
-} = require(`discord.js`);
+const { Client, GatewayIntentBits, Collection } = require("discord.js");
+const voiceChannelJoinHandler = require("./src/events/isOnline"); // Ajuste o caminho conforme necessário
+
 const fs = require("fs");
+require("dotenv").config();
+
 const client = new Client({
   intents: [
     GatewayIntentBits.Guilds,
@@ -23,14 +21,11 @@ const client = new Client({
     GatewayIntentBits.GuildMembers,
     GatewayIntentBits.GuildPresences,
     GatewayIntentBits.GuildVoiceStates,
-    GatewayIntentBits.GuildMessageReactions,
   ],
   partials: ["MESSAGE", "CHANNEL", "REACTION"],
 });
 
 client.commands = new Collection();
-//this will get the passwd and id. Those are hidden to public view. Check .env file on root.
-require("dotenv").config();
 
 const functions = fs
   .readdirSync("./src/functions")
@@ -39,22 +34,45 @@ const eventFiles = fs
   .readdirSync("./src/events")
   .filter((file) => file.endsWith(".js"));
 const commandFolders = fs.readdirSync("./src/commands");
-(async () => {
-  for (file of functions) {
-    require(`./src/functions/${file}`)(client);
-  }
-  client.handleEvents(eventFiles, "./src/events");
-  client.handleCommands(commandFolders, "./src/commands");
-  client.login(process.env.token);
-})();
 
-client.login(process.env.TOKEN);
+// Função para inicializar o bot
+(async () => {
+  try {
+    // Carregar funções
+    for (const file of functions) {
+      require(`./src/functions/${file}`)(client);
+    }
+
+    // Carregar eventos e comandos
+    client.handleEvents(eventFiles, "./src/events");
+    client.handleCommands(commandFolders, "./src/commands");
+
+    // Log dos eventos carregados
+    eventFiles.forEach((file) => {
+      console.log(`- ${file}`);
+    });
+
+    // Conectar ao MongoDB
+    mongoose.set("strictQuery", false);
+    await mongoose.connect(process.env.MONGODB_SRV);
+    console.log(`💾 Conectado ao MongoDB`);
+
+    // Logar o bot no Discord
+    await client.login(process.env.TOKEN);
+    console.log(`🔥 ${client.user.displayName} está online!`);
+
+    // Inicializar os event handlers
+    eventHandler(client);
+  } catch (error) {
+    console.error(`⛔ Erro durante a inicialização: ${error}`);
+  }
+})();
 
 /*****************************************************
  ********************** Events ************************
  *****************************************************/
 
-// Seu código de obtenção de comandos...
+// Comandos
 const commandsList = client.commands
   .map((command) => `- ${command.data.name}`)
   .join("\n");
@@ -63,7 +81,6 @@ const cowText = `${commandsList}`;
 const cowOptions = {
   e: "cO",
   T: " U",
-  //f: "cow"
 };
 
 console.log(
@@ -73,18 +90,17 @@ console.log(
   })
 );
 
-//Bad words
+// Monitorar mensagens para palavras proibidas
 client.on("messageCreate", (message) => {
   wordWarning(message);
 });
 
-//autocomplete
+// Autocomplete para comandos
 client.on("interactionCreate", async (interaction) => {
   if (interaction.isAutocomplete()) {
     const command = interaction.client.commands.get(interaction.commandName);
-    if (!command) {
-      return;
-    }
+    if (!command) return;
+
     try {
       await command.autocomplete(interaction);
     } catch (err) {
@@ -93,50 +109,22 @@ client.on("interactionCreate", async (interaction) => {
   }
 });
 
-//Mongoose connection
-(async () => {
-  try {
-    mongoose.set("strictQuery", false);
-    await mongoose.connect(process.env.MONGODB_SRV);
-    console.log(`✅ Mongoose is working`);
-
-    client.login(process.env.TOKEN);
-    eventHandler(client);
-  } catch (error) {
-    console.log(` ⛔ Connection error with mongoose: ${error}`);
-    client.on("someEvent", async (member) => {
-      // 'someEvent' pode ser o evento que deseja usar
-      const roleId = "1146369948613103627"; // Substitua pelo ID do cargo que deseja adicionar
-      await checkAndAddRole(member, roleId);
-    });
-  }
-})();
-
-checkAndUpdateRoles(client);
-
+// Eventos de membro adicionado
 const welcomeEvent = require("./src/events/welcomeEvent");
-client.on("guildMemberAdd", (member) => {
-  welcomeEvent(member);
-});
 const logAddEvent = require("./src/events/logAdd");
 client.on("guildMemberAdd", (member) => {
+  welcomeEvent(member);
   logAddEvent(member);
 });
 
+// Evento de membro removido
 const guildMemberRemove = require("./src/events/logRemove");
 client.on("guildMemberRemove", (member) => {
   guildMemberRemove(member);
+  console.log("🔥 Evento de Log rodando");
 });
 
-//log de entrada em canal, nada haver com o sistema de xp
-
-// client.on("voiceStateUpdate", (oldState, newState) => {
-//   if (!oldState.channel && newState.channel) {
-//     console.log(
-//       `🔥 ${newState.member.user.displayName} is on: ${newState.channel.name}`
-//     );
-//   }
-// });
+// Atribuição e remoção de cargos e sistema de XP
 const roleId = "1275620987257229322"; // Substitua pelo ID real do cargo
 
 client.on("messageCreate", async (message) => {
@@ -144,89 +132,17 @@ client.on("messageCreate", async (message) => {
   await checkAndRemoveRole(client, roleId);
 });
 
-// client.once("ready", () => {
-//   console.log(`Bot logado como ${client.user.tag}`);
-// });
+// Função para checar e atualizar roles
+checkAndUpdateRoles(client);
 
-// Inicializa o gerenciador de eventos
-const eventScheduler = new EventScheduler(client);
-
-client.once("ready", () => {
-  // Inicia o agendamento dos eventos
-  eventScheduler.initEvents();
+// Log de erro para login do bot
+client.login(process.env.TOKEN).catch((err) => {
+  console.error("Erro ao logar o bot:", err);
 });
 
-///
-/////
-///////
-
-////////
-//////////
-client.on("messageReactionAdd", async (reaction, user) => {
-  if (user.bot) return; // Ignora reações de bots
-
-  console.log(
-    `Reação adicionada: ${reaction.emoji.name} na mensagem ${reaction.message.id} por ${user.tag}`
-  );
-
-  const messageId = "1282826286229753897"; // Substitua pelo ID da mensagem
-  const roleId = "1278136388767973470"; // Substitua pelo ID do cargo
-
-  if (reaction.message.id === messageId) {
-    const guild = reaction.message.guild;
-    if (guild) {
-      try {
-        const member = await guild.members.fetch(user.id);
-        if (member && !member.roles.cache.has(roleId)) {
-          await member.roles.add(roleId);
-          console.log(`Cargo adicionado a ${user.tag}`);
-        }
-      } catch (error) {
-        console.error("Erro ao adicionar o cargo:", error);
-      }
-    } else {
-      console.error("Guild não encontrada para a mensagem.");
-    }
-  }
-});
-
-client.on("messageReactionRemove", async (reaction, user) => {
-  if (user.bot) return; // Ignora reações de bots
-
-  console.log(
-    `Reação removida: ${reaction.emoji.name} na mensagem ${reaction.message.id} por ${user.tag}`
-  );
-
-  const messageId = "1282826286229753897"; // Substitua pelo ID da mensagem
-  const roleId = "1278136388767973470"; // Substitua pelo ID do cargo
-
-  if (reaction.message.id === messageId) {
-    const guild = reaction.message.guild;
-    if (guild) {
-      try {
-        const member = await guild.members.fetch(user.id);
-        if (member && member.roles.cache.has(roleId)) {
-          await member.roles.remove(roleId);
-          console.log(`Cargo removido de ${user.tag}`);
-        }
-      } catch (error) {
-        console.error("Erro ao remover o cargo:", error);
-      }
-    } else {
-      console.error("Guild não encontrada para a mensagem.");
-    }
-  }
-});
-
-//ADICIONAR O EMOJI PARA TER A PORRA DO CARALHO
-client.once("ready", async () => {
-  try {
-    const channel = await client.channels.fetch("1140345961634353235"); // Substitua pelo ID do canal
-    const message = await channel.messages.fetch("1282826286229753897"); // Substitua pelo ID da mensagem
-
-    await message.react("👍"); // Substitua pelo emoji desejado
-    console.log("Emoji adicionado à mensagem.");
-  } catch (error) {
-    console.error("Erro ao adicionar a reação:", error);
+client.on("voiceStateUpdate", (oldState, newState) => {
+  if (!oldState.channel && newState.channel) {
+    // O membro entrou em um canal de voz
+    voiceChannelJoinHandler(newState.member);
   }
 });

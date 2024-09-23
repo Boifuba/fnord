@@ -1,5 +1,5 @@
 const calculateLevelXp = require("../utils/calculateLevelXp");
-const Level = require("../schema/Level");
+const Level = require("../../src/schema/Level");
 const cooldowns = new Set();
 
 function getRandomXp(min, max) {
@@ -31,9 +31,7 @@ module.exports = async (client, message, xpPerLevel) => {
     const level = await Level.findOne(query);
     let xpToGive = getRandomXp(1, 2);
 
-
     if (message.attachments.size > 0) {
-   
       xpToGive *= message.attachments.size;
     }
 
@@ -41,14 +39,14 @@ module.exports = async (client, message, xpPerLevel) => {
       level.xp += xpToGive;
 
       //console.log(`✅ ${message.member.displayName}: ${level.xp}/${calculateLevelXp(level.level)} XP`);
-      
 
       if (level.xp >= calculateLevelXp(level.level)) {
         level.xp = 0;
         level.level += 1;
 
-        console.log(`✅ ${message.member.displayName} subiu de nível ${level.level}`);
-        
+        console.log(
+          `✅ ${message.member.displayName} subiu de nível ${level.level}`
+        );
       }
 
       await level.save().catch((e) => {

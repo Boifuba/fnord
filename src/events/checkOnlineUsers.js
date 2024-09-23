@@ -1,15 +1,14 @@
-const Level = require("../schema/Level");
+const Level = require("../../src/schema/Level");
+const Presence = require("../../src/schema/monarkSchema");
 const calculateLevelXp = require("../utils/calculateLevelXp");
 
 module.exports = {
   name: "ready",
   once: true,
   async execute(client) {
-    console.info(`✅ Bot is working.`);
+    console.info(`✅ XP Giver está funcional.`);
 
     async function checkOnlineUsers() {
-      //      console.log("🔼 Checking online users");
-
       const xpToGive = 1;
       const guild = client.guilds.cache.get("721359044383866971");
 
@@ -23,14 +22,12 @@ module.exports = {
             };
 
             try {
+              // Atualizando a DB de XP (Level)
               const level = await Level.findOne(query);
 
               if (level) {
                 level.xp += xpToGive;
                 await level.save();
-                //  console.log(
-                //    `✅ ${member.user.displayName} earned ${xpToGive} ${level.xp}/${calculateLevelXp(level.level)} `
-                //  );
               } else {
                 const newLevel = new Level({
                   userId: member.user.id,
@@ -40,16 +37,33 @@ module.exports = {
 
                 await newLevel.save();
               }
+
+              // Atualizando a DB de Presence (monarkSchema)
+              const presenceQuery = { userId: member.user.id };
+              const presence = await Presence.findOne(presenceQuery);
+
+              if (presence) {
+                presence.points += xpToGive;
+                presence.displayName = member.user.username; // Atualiza o nome, caso tenha mudado
+                await presence.save();
+              } else {
+                const newPresence = new Presence({
+                  userId: member.user.id,
+                  displayName: member.user.username,
+                  points: xpToGive,
+                });
+
+                await newPresence.save();
+              }
             } catch (error) {
-              console.warn(`⛔ Error giving xp: ${error}`);
+              console.warn(`⛔ Error updating XP or presence: ${error}`);
             }
           });
         });
     }
 
-    // Executa a função a cada 10 minutos (600000 milissegundos)
     setInterval(async () => {
       await checkOnlineUsers();
-    }, 600000);
+    }, 3600000);
   },
 };
