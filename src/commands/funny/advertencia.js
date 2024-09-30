@@ -1,7 +1,7 @@
 const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
 const Cards = require("../../schema/card");
 const checkAndAddRole = require("../../functions/checkRoleCards");
-const Anarquia = require("../../schema/anarquia"); // Importa o modelo de anarquia
+const Anarquia = require("../../schema/anarquia");
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -25,24 +25,18 @@ module.exports = {
             .addChoices(
               { name: "Art. 1º - Homofobia", value: "Homofobia" },
               { name: "Art. 2º - Fofoca incompleta", value: "Fofoca." },
-              { name: "Art. 3º - Pesquisa e Citação ", value: "Pesquisa" },
+              { name: "Art. 3º - Pesquisa e Citação", value: "Pesquisa" },
               { name: "Art. 4º - Militância", value: "Militância" },
               {
                 name: "Art. 5º - Foto de Anime ou Furry",
                 value: "Foto de Anime",
               },
+              { name: "Art. 6º - Falar mal do Menino Ney", value: "Neymar" },
               {
-                name: "Art. 6º - Falar mal do Menino Ney",
-                value: "Neymar",
-              },
-              {
-                name: "Art. 7º - Inventar Palabras",
+                name: "Art. 7º - Inventar Palavras",
                 value: "Inventar Palavras",
               },
-              {
-                name: "Art. 8º - Contestar Cartão",
-                value: "Contestar Cartão",
-              },
+              { name: "Art. 8º - Contestar Cartão", value: "Contestar Cartão" },
               {
                 name: "MP Nº001 - Falar da Taylor Swift",
                 value: "Taylor Swift",
@@ -69,7 +63,6 @@ async function handleAddCard(interaction) {
     const motivo =
       interaction.options.getString("motivo") || "Nenhum motivo especificado";
 
-    // Consulta o estado da anarquia
     const anarquia = await Anarquia.findOne();
     if (anarquia && anarquia.estado) {
       const embed = new EmbedBuilder()
@@ -91,17 +84,40 @@ async function handleAddCard(interaction) {
         user: user.id,
         cards: 0,
         totalCards: 0,
-        reasons: [], // Inicializa o array de motivos
+        reasons: [],
       });
     }
 
+    const currentTime = new Date();
+
+    // Verifica se o usuário já tomou um cartão nos últimos 10 segundos
+    const lastReason = userData.reasons[userData.reasons.length - 1];
+    const timeSinceLastCard = lastReason
+      ? currentTime - new Date(lastReason.timestamp)
+      : null;
+
+    if (timeSinceLastCard && timeSinceLastCard < 10000) {
+      await interaction.editReply({
+        content: `⚠️ ${user.displayName} ninguém pode ser punido duas vezes pelo mesmo crime! Sua acusação atendendo à circunstancia recebe indeferimento, cabendo a mim o dever do desatendimento à sua petição. `,
+        ephemeral: true,
+      });
+      return;
+    }
+
+    // Adiciona o cartão e o timestamp
     userData.cards += 1;
     userData.totalCards += 1;
-    userData.reasons.push({ reason: motivo }); // Adiciona o motivo ao array
+    userData.reasons.push({
+      reason: motivo,
+      timestamp: currentTime.toISOString(),
+    });
+
+    //console.log(`Timestamp: ${currentTime.toISOString()}`); // Exibe o timestamp no console
+
     await userData.save();
 
     await interaction.editReply({
-      content: `🔴 Você advertiu ${user.displayName}. Eles agora têm ${userData.cards} advertências.`,
+      content: `🔴 Você advertiu ${user.displayName} que agora tem ${userData.cards} advertências.`,
       ephemeral: true,
     });
 
@@ -120,17 +136,16 @@ async function handleAddCard(interaction) {
       embeds: [embed],
     });
 
-    // Verifique se o usuário atingiu 10 cards e adicione o cargo
     const member = interaction.guild.members.cache.get(user.id);
     const roleId = "1275620987257229322"; // Substitua com o ID do cargo que deseja adicionar
     const roleAdded = await checkAndAddRole(member, roleId);
 
     if (roleAdded) {
-      userData.lastRoleAdded = new Date(); // Armazena a data de adição do cargo
+      userData.lastRoleAdded = new Date();
       await userData.save();
     }
   } catch (error) {
-    console.error(error);
+    console.error("Erro ao adicionar advertência:", error);
     if (interaction.deferred || interaction.replied) {
       await interaction.editReply(
         "❌ Ocorreu um erro ao adicionar as advertências."

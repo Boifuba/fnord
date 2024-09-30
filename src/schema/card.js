@@ -22,6 +22,11 @@ const cardsSchema = new Schema({
         type: String,
         required: true,
       },
+      timestamp: {
+        // Certifique-se de que o timestamp é incluído aqui
+        type: Date,
+        required: false,
+      },
     },
   ], // Array para armazenar os motivos dos cartões
 });

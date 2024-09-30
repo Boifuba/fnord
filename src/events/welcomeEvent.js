@@ -20,8 +20,8 @@ module.exports = async (member) => {
       member.id
     }> Por favor leia as regras do canal em ${member.guild.channels.cache.get(
       rulesChannel
-    )}. Haverá um prova sobre elas na terça.
-      )} `,
+    )}. Haverá um prova sobre elas na terça, reprovações resultarão em banimento.
+     `,
     thumbnail: {
       url: member.user.displayAvatarURL({ dynamic: true, size: 512 }),
     },

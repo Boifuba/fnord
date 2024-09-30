@@ -56,7 +56,6 @@ async function checkAndRemoveRoles(client, roleId) {
           // await userCard.save();
         }
       } else {
-        console.log(`Ninguém Online para ter o cargo Removido`);
       }
     }
   } catch (error) {

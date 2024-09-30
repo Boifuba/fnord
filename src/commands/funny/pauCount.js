@@ -104,7 +104,7 @@ module.exports = {
         const embed = new EmbedBuilder()
           .setTitle("Tempo sem falar de pau")
           .setDescription(
-            `Estamos a ${diferencaHoras} horas e ${diferencaMinutos} minutos sem falar de pau.\n` +
+            `Estamos há ${diferencaHoras} horas e ${diferencaMinutos} minutos sem falar de pau.\n` +
               `Nosso recorde é de ${recordeHoras} horas e ${recordeMinutos} minutos.`
           )
           .setColor(0x00ff00)

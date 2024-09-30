@@ -15,9 +15,11 @@ module.exports = {
         .filter((channel) => channel.type === 2) // Filtra para pegar apenas canais de voz
         .forEach((channel) => {
           channel.members.each(async (member) => {
-            // Ignorar usuários com status AFK
-            if (member.voice.serverMute || member.voice.serverDeaf) {
-              console.log(`🔕 Ignorando ${member.user.displayName} (AFK)`);
+            // Ignorar usuários mutados ou surdos
+            if (member.voice.mute || member.voice.deaf) {
+              // console.log(
+              //   `🔕 Ignorando ${member.user.displayName} (mutado ou surdo)`
+              // );
               return;
             }
 
@@ -58,6 +60,6 @@ module.exports = {
     // Executa a função a cada 10 minutos (600000 milissegundos)
     setInterval(async () => {
       await checkOnlineUsers();
-    }, 600000);
+    }, 60000);
   },
 };
